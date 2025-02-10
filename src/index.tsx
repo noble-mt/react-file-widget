@@ -1,17 +1,10 @@
-import { CSSProperties, FC } from "react";
-import { RFW_File, SlotsClassNames, SlotStyleProps } from "modals";
-import { DocRenderer } from "modals/render";
-import { Renderer } from "renders";
-import { FileWidgetCommonProps } from "modals/sharedProps";
-import ImageRender from "renders/image/image";
+import { Renderer } from "./renders";
+import { RFW_AppProps } from "./modals/app-props";
+import ImageRender from "./renders/image/image";
+import { AppProvider } from "./context-provider";
 
-
-export interface FileWidgetProps extends FileWidgetCommonProps {
-  renderers: DocRenderer[];
-}
-
-export const FileWidget = (props: FileWidgetProps) => {
-  const { document, classNames, slotProps } = props;
+export const FileWidget = (props: RFW_AppProps) => {
+  const { file, renderers, ...rest } = props;
 
   if (!document || document === undefined) {
     throw new Error(
@@ -20,14 +13,16 @@ export const FileWidget = (props: FileWidgetProps) => {
   }
 
   return (
+    <AppProvider file={file} {...rest}>
       <div
         id="react-file-widget"
         data-testid="react-file-widget"
-        className={`rfw-root ${classNames?.root}`}
-        style={slotProps?.root}
+        className={`rfw-root ${rest?.classNames?.root}`}
+        style={rest?.slotProps?.root}
       > 
-        <Renderer {...props} />
+        <Renderer renderers={renderers ?? []} />
       </div>
+    </AppProvider>
   );
 };
 
