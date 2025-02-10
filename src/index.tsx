@@ -2,6 +2,7 @@ import { Renderer } from "./renders";
 import { RFW_AppProps } from "./modals/app-props";
 import ImageRender from "./renders/image/image";
 import { AppProvider } from "./context-provider";
+import VideoRender from "./renders/video/video";
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -29,5 +30,11 @@ export const FileWidget = (props: RFW_AppProps) => {
 export default FileWidget;
 
 export {
-  ImageRender
+  ImageRender,
+  VideoRender
 }
+
+export const AllRenderers = [
+  ImageRender,
+  VideoRender
+];

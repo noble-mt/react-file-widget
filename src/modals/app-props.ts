@@ -7,4 +7,8 @@ export interface RFW_AppProps {
   classNames?: RFW_SlotsClassNames;
   slotProps?: RFW_SlotStyleProps;
   renderers?: RFW_FileRenderer[];
+  inline?: boolean,
+  videoProps?: {
+    hideControls?: boolean
+  }
 }

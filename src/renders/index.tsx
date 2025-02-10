@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import ImageRender from "./image/image";
 import { extractFileExtension } from "../utils/file-extensions";
 import { RFW_FileRenderer } from "modals";
 import { useGetDocument } from "../utils/context-helpers";
@@ -54,6 +53,3 @@ export const Renderer = ({ renderers }: RendererProps) => {
   );
 };
 
-export const AllRenderers = [
-  ImageRender
-];
