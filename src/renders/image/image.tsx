@@ -1,13 +1,14 @@
 import { RFW_FileRenderer } from "modals";
-import { useGetDocument } from "../../utils/context-helpers";
+import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 
 
 const ImageRender: RFW_FileRenderer = () => {
   const document = useGetDocument();
+  const config = useGetConfig();
 
   return (
     <div id="image-renderer" >
-      <img id="image-img" src={document?.url as string} />
+      <img id="image-img" width={config?.width} height={config?.height ?? 'auto'} src={document?.url as string} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const VideoRender: RFW_FileRenderer = () => {
 
   return (
     <div id="video-renderer" >
-      <video id="video-img" src={document?.url as string} controls={!config?.videoProps?.hideControls} />
+      <video id="video-img" width={config?.width} height={config?.height ?? 'auto'} src={document?.url as string} controls={!config?.videoProps?.hideControls} />
     </div>
   );
 };

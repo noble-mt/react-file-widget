@@ -21,11 +21,17 @@ export const Renderer = ({ renderers }: RendererProps) => {
         setCurrentRenderer(undefined);
         const extension = extractFileExtension(document.url);
         renderers?.some((Render) => {
-          console.log('ext', Render.supportedFileTypes)
-          if (Render.supportedFileTypes?.find(ext => ext === extension)) {
-            console.log('matched', Render)
-            setCurrentRenderer(() => Render);
-            return true;
+          if (Render.supportUrlPatterns) {
+            if(Render.supportUrlPatterns.test(document.url)) {
+              setCurrentRenderer(() => Render);
+              return true;
+            }
+          } else {
+            if (Render.supportedFileTypes?.find(ext => ext === extension)) {
+              console.log('matched', Render)
+              setCurrentRenderer(() => Render);
+              return true;
+            }
           }
         });
         // if (!CurrentRenderer) {
