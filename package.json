@@ -30,6 +30,10 @@
     "format:styles": "stylelint ./**/*.{css,scss} --fix"
   },
   "dependencies": {
+    "pdfjs-dist": "^4.10.38",
+    "react-pdf": "^9.2.1"
+  },
+  "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
