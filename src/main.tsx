@@ -5,6 +5,6 @@ import { AllRenderers } from "./index";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <FileWidget file={{ url: 'https://www.youtube.com/playlist?list=PLbpi6ZahtOH4x7Nr-foVTUSX5rhsYcsoT' }} width="400px"  renderers={AllRenderers} videoProps={{ hideControls: true  }}/>
+    <FileWidget file={{ url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE' }} width="400px"  renderers={AllRenderers} videoProps={{ hideControls: false, autoplay: true, start: 40  }}/>
   </React.StrictMode>
 );

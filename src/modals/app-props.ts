@@ -12,9 +12,18 @@ export interface RFW_AppProps {
   height?: string
   videoProps?: {
     hideControls?: boolean
+    muted?: boolean,
+    autoplay?: boolean,
+    noCookie?: boolean,
+    disableKeyBoard?: boolean,
+    hideFullScreen?: boolean,
+    loop?: boolean,
+    disableInlineOnMobile?: boolean,
+    start?: number
   },
   youtubePref?: {
-    noCookie?: boolean,
-    muted?: boolean
+  },
+  vimeoPref?: {
+    quality?: '240p' | '360p' | '540p' | '720p' | '1080p' | '2k' | '4k',
   }
 }

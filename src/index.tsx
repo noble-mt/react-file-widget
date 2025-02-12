@@ -4,6 +4,7 @@ import ImageRender from "./renders/image/image";
 import { AppProvider } from "./context-provider";
 import VideoRender from "./renders/video/video";
 import YoutubeRender from "./renders/youtube/youtube";
+import VimeoRender from "./renders/vimeo/vimeo";
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -32,11 +33,14 @@ export default FileWidget;
 
 export {
   ImageRender,
-  VideoRender
+  VideoRender,
+  YoutubeRender,
+  VimeoRender
 }
 
 export const AllRenderers = [
   ImageRender,
   VideoRender,
-  YoutubeRender
+  YoutubeRender,
+  VimeoRender
 ];

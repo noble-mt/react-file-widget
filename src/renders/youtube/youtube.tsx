@@ -27,7 +27,7 @@ const YoutubeRender: RFW_FileRenderer = () => {
         setId(document.url.match(MATCH_USER_UPLOADS)?.[1] ?? '');
         setType('user');
       }
-      if (MATCH_USER_UPLOADS.test(document.url)) {
+      if (MATCH_URL_YOUTUBE.test(document.url)) {
         setId(document.url.match(MATCH_URL_YOUTUBE)?.[1] ?? '');
         setType('video');
       }
@@ -36,16 +36,21 @@ const YoutubeRender: RFW_FileRenderer = () => {
 
   // const posterUrl = `https://i.ytimg.com/${vi_format}/${id}/${posterImp}.${format}`;
 
-  const ytUrl = config?.youtubePref?.noCookie ? "https://www.youtube-nocookie.com" : "https://www.youtube.com";
-  const mutedImp = config?.youtubePref?.muted ? "&mute=1" : "";
+  const ytUrl = config?.videoProps?.noCookie ? "https://www.youtube-nocookie.com" : "https://www.youtube.com";
+  const mutedImp = config?.videoProps?.muted ? "&mute=1" : "";
   const controls = config?.videoProps?.hideControls ? "0" : "1";
-
+  const autoPlay = config?.videoProps?.autoplay ? "&autoplay=1" : "&autoplay=0";
+  const keyboard = config?.videoProps?.disableKeyBoard ? "&disablekb=0" : "";
+  const loop = config?.videoProps?.loop ? "&loop=1" : "&loop=0";
+  const playsinline = config?.videoProps?.disableInlineOnMobile ? "&playsinline=0" : "";
+  const start = config?.videoProps?.start ? `&start=${config?.videoProps?.start}` : "";
+  
   const iframeSrc = (() => {
     switch (type) {
       case 'video':
-        return `${ytUrl}/embed/${id}?autoplay=1&state=1${mutedImp}&controls={controls}`;
+        return `${ytUrl}/embed/${id}?controls=${controls}&state=1${mutedImp}&${autoPlay}${keyboard}${loop}${playsinline}${start}`;
       case 'playlist':
-        return `${ytUrl}/embed/videoseries?autoplay=1${mutedImp}&list=${id}&controls=${controls}`;
+        return `${ytUrl}/embed/videoseries?list=${id}&controls=${controls}${mutedImp}&${autoPlay}${keyboard}${loop}${playsinline}${start}`;
       default:
         return '';
     }
@@ -59,7 +64,7 @@ const YoutubeRender: RFW_FileRenderer = () => {
         height="315"
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
+        allowFullScreen={config?.videoProps?.hideFullScreen}
         src={iframeSrc}
       ></iframe>
     </div>
