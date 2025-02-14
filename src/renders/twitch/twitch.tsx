@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RFW_FileRenderer } from "../../modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { convertSecondsToVideoTime } from "../../utils/time";
+import { convertSecondsToTwitchTime } from "../../utils/time";
 import { PlayButton, VideoContainer } from "../../shared/video-image-contr";
 export const MATCH_URL_TWITCH_VIDEO = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/
 export const MATCH_URL_TWITCH_CHANNEL = /(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)($|\?)/
@@ -41,13 +41,16 @@ const TwitchRender: RFW_FileRenderer = () => {
   const mutedImp = config?.videoProps?.muted ? "&muted=true" : "&muted=false";
   const controls = config?.videoProps?.hideControls ? "0" : "1";
   const autoPlay = config?.videoProps?.autoplay || config?.videoProps?.disablePreLoad ? "&autoplay=true" : "&autoplay=false";
-  const noCookie = config?.videoProps?.noCookie ? "&dnt=true" : "&dnt=false";
-  const keyboard = config?.videoProps?.disableKeyBoard ? "&keyboard=0" : "&keyboard=1";
-  const loop = config?.videoProps?.loop ? "&loop=1" : "&loop=0";
-  const playsinline = config?.videoProps?.disableInlineOnMobile ? "&playsinline=0" : "";
-  const start = config?.videoProps?.start ? `&#t=${convertSecondsToVideoTime(config?.videoProps?.start)}` : "";
+  const start = config?.videoProps?.start ? `&#t=${convertSecondsToTwitchTime(config?.videoProps?.start)}` : "";
 
-  const iframeSrc = `${baseUrl}/video/${id}?controls=${controls}${autoPlay}${mutedImp}${noCookie}${loop}${keyboard}${playsinline}${start}`;
+  const iframeSrc = `${baseUrl}/?${type}=${id}&parent=${config?.twitchProps?.parent}&controls=${controls}${autoPlay}${mutedImp}${start}`;
+
+  React.useEffect(() => {
+    if (!config?.twitchProps?.parent) {
+      console.log('Error: Twitch Require Parent Property to embed videos. Please pass it like twitchProps: { parent: HOST } }')
+    }
+  }, [config?.twitchProps?.parent])
+
 
   return (
     <div id="vimeo-renderer" style={{ width: "100%"}}>

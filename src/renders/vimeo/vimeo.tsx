@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { POSTER_QUALITY, RFW_FileRenderer } from "../../modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { convertSecondsToVideoTime } from "../../utils/time";
+import { convertSecondsToVimeoTime } from "../../utils/time";
 import { VideoContainer, PlayButton } from "../../shared/video-image-contr";
 const MATCH_URL_VIMEO = /(?:http|https)?:?\/?\/?(?:www\.)?(?:player\.)?vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|video\/|)(\d+)(?:|\/\?)/;
 const baseUrl = "https://player.vimeo.com";
@@ -65,7 +65,7 @@ const VimeoRender: RFW_FileRenderer = () => {
   const keyboard = config?.videoProps?.disableKeyBoard ? "&keyboard=0" : "&keyboard=1";
   const loop = config?.videoProps?.loop ? "&loop=1" : "&loop=0";
   const playsinline = config?.videoProps?.disableInlineOnMobile ? "&playsinline=0" : "";
-  const start = config?.videoProps?.start ? `&#t=${convertSecondsToVideoTime(config?.videoProps?.start)}` : "";
+  const start = config?.videoProps?.start ? `&#t=${convertSecondsToVimeoTime(config?.videoProps?.start)}` : "";
 
   const iframeSrc = `${baseUrl}/video/${id}?controls=${controls}${autoPlay}${mutedImp}${noCookie}${loop}${keyboard}${playsinline}${start}`;
 

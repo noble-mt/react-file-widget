@@ -6,6 +6,7 @@ import VideoRender from "./renders/video/video";
 import YoutubeRender from "./renders/youtube/youtube";
 import VimeoRender from "./renders/vimeo/vimeo";
 import TwitchRender from "./renders/twitch/twitch";
+import PdfRenderer from "./renders/pdf/pdf";
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -37,7 +38,8 @@ export {
   VideoRender,
   YoutubeRender,
   VimeoRender,
-  TwitchRender
+  TwitchRender,
+  PdfRenderer
 }
 
 export const AllRenderers = [
@@ -45,5 +47,6 @@ export const AllRenderers = [
   VideoRender,
   YoutubeRender,
   VimeoRender,
-  TwitchRender
+  TwitchRender,
+  PdfRenderer
 ];
