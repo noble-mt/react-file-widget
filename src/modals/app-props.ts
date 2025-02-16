@@ -9,12 +9,13 @@ export type CACHE_POLICY = 'prefetch' | 'preload';
 export type PDF_MODES = 'two_page_view' | 'single_page_view';
 
 
-export interface PdfState {
+export interface RFW_WidgetComponentProperties {
   currentZoom: number,
   currentPage: number,
   totalPages: number,
   currentMode: PDF_MODES,
   paginated?: boolean,
+  currentRotation?: number,
   setZoom: (newZoom: number) => void,
   zoomIn: (increment?: number) => void,
   zoomOut: (decrement?: number) => void,
@@ -22,8 +23,20 @@ export interface PdfState {
   nextPage: () => void,
   prevPage: () => void,
   changeMode: (mode: PDF_MODES) => void,
-  togglePagination?: (paginated: boolean) => void
+  togglePagination: (paginated: boolean) => void,
+  rotateLeft: () => void,
+  rotateRight: () => void,
 }
+
+export  type RFW_WidgetComponentProps = (props: RFW_WidgetComponentProperties) => ReactNode;
+
+
+export  type RFW_PdfWidgetProps = {
+  position: 'left' | 'right' | 'top' | 'bottom',
+  component: RFW_WidgetComponentProps
+}
+
+
 
 export interface RFW_AppProps {
   file?: RFW_File;
@@ -57,6 +70,14 @@ export interface RFW_AppProps {
     parent?: string
   }
   pdfProps?: {
-    widgets: (props: PdfState) => ReactNode
+    widgets: RFW_PdfWidgetProps[],
+    currentPage?: number,
+    zoom?: number,
+    paginated?: boolean,
+    mode?: PDF_MODES,
+    rotation?: number,
+    onLoad?: (totalPages: number) => void,
+    hidePageSelector?: boolean,
+    hideHeader?: boolean,
   }
 }

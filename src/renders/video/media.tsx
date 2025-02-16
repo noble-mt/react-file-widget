@@ -3,11 +3,29 @@ import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { useEffect } from "react";
 import { PlayButton, VideoContainer } from "../../shared/video-image-contr";
 import React from "react";
+import loadScript from 'load-script';
+import {
+  MediaController,
+  MediaControlBar,
+  MediaTimeRange,
+  MediaTimeDisplay,
+  MediaVolumeRange,
+  MediaPlayButton,
+  MediaSeekBackwardButton,
+  MediaSeekForwardButton,
+  MediaMuteButton,
+  MediaPipButton,
+  MediaFullscreenButton,
+} from 'media-chrome/react';
 
 
 const VideoRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
+
+  // useEffect(() => {
+  //   loadScript('https://cdn.jsdelivr.net/npm/media-chrome@4/+esm', () => {});
+  // }, [])
 
   
   const [preConnected, setPreConnected] = React.useState(false);
@@ -59,17 +77,22 @@ const VideoRender: RFW_FileRenderer = () => {
         >
           <PlayButton />
           {showVideo ?
-            <video
-              id="myvideo"
-              width={config?.width}
-              height={config?.height ?? 'auto'}
-              src={file?.url as string}
-              controls={!config?.videoProps?.hideControls}
-              autoPlay={config?.videoProps?.autoplay}
-              loop={config?.videoProps?.loop}
-              muted={config?.videoProps?.muted}
-              playsInline={!config?.videoProps?.disableInlineOnMobile}
-            />
+            <MediaController class="video">
+              <video
+                slot="media"
+                src={file?.url}
+                crossOrigin=""
+              >
+              </video>
+              <MediaControlBar>
+                <MediaPlayButton />
+                <MediaMuteButton />
+                <MediaVolumeRange />
+                <MediaTimeRange />
+                <MediaPipButton />
+                <MediaFullscreenButton />
+              </MediaControlBar>
+            </MediaController>
           : ''}
       </VideoContainer>
     </div>
@@ -78,4 +101,4 @@ const VideoRender: RFW_FileRenderer = () => {
 
 export default VideoRender;
 
-VideoRender.supportedFileTypes = ["mp4", "webm", "ogg"];
+VideoRender.supportedFileTypes = ["mp4", "webm", "ogg", "mkv", "avi", "m3u8"];

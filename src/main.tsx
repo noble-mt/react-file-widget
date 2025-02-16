@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { FileWidget } from "./index";
+import { FileWidget, getDefaultWidgets } from "./index";
 import { AllRenderers } from "./index";
-import { POSTER_QUALITY } from "modals";
+import { POSTER_QUALITY } from "./modals";
+import { ZoomController } from "./renders/pdf/widgets/zoom-widget";
+import { Header } from "./renders/pdf/components/header";
+import { PageSelector } from "./renders/pdf/components/page-selector";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -21,30 +24,38 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         renderers={AllRenderers}
         videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high', hideFullScreen: true  }}
       />
-      <div style={{ height: "100px"}} /> */}
+      <div style={{ height: "100px"}} />
       <FileWidget
-        file={{ url: 'https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths-hls/hls.m3u8' }}
+        file={{ url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4' }}
         width="800px"
         height="100%"
         renderers={AllRenderers}
         videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high',  hideFullScreen: true  }}
       />
       <div style={{ height: "100px"}} />
-      {/* <FileWidget
+      <FileWidget
         file={{ url: 'https://www.twitch.tv/bean' }}
-        width="800px"
+        width="100%"
         height="100%"
         renderers={AllRenderers}
         videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high',  hideFullScreen: true  }}
         twitchProps={{ parent: 'localhost' }}
-      /> */}
-      {/* <FileWidget
-        file={{ url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }}
-        width="800px"
-        height="100%"
-        renderers={AllRenderers}
       />
-       */}
+      <div style={{ height: "100px"}} /> */}
+      <div style={{ height: "600px"}} >
+        <FileWidget
+          file={{ url: 'https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf' }}
+          width="800px"
+          height="600px"
+          renderers={AllRenderers}
+          pdfProps={{
+            paginated: true,
+            widgets: getDefaultWidgets(),
+            hidePageSelector: true,
+          }}
+        />
+      </div>
+      
     </div>
   </React.StrictMode>
 );
