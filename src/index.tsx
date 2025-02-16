@@ -8,8 +8,12 @@ import VimeoRender from "./renders/vimeo/vimeo";
 import TwitchRender from "./renders/twitch/twitch";
 import PdfRenderer from "./renders/pdf/pdf";
 import { ZoomController } from "./renders/pdf/widgets/zoom-widget";
-import { Header } from "./renders/pdf/components/header";
-import { PageSelector } from "./renders/pdf/components/page-selector";
+import HTMLRender from "./renders/html/html";
+import MSDocRender from "./renders/msdoc/msdoc";
+import CSVRender from "./renders/csv/csv";
+import TextXmlRender from "./renders/textXml/textXml";
+import JSONRenderer from "./renders/json/json";
+import React from "react";
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -42,7 +46,12 @@ export {
   YoutubeRender,
   VimeoRender,
   TwitchRender,
-  PdfRenderer
+  PdfRenderer,
+  HTMLRender,
+  MSDocRender,
+  CSVRender,
+  TextXmlRender,
+  JSONRenderer
 }
 
 export const AllRenderers = [
@@ -51,7 +60,12 @@ export const AllRenderers = [
   YoutubeRender,
   VimeoRender,
   TwitchRender,
-  PdfRenderer
+  PdfRenderer,
+  HTMLRender,
+  MSDocRender,
+  CSVRender,
+  TextXmlRender,
+  JSONRenderer
 ];
 
 export const getDefaultWidgets = (): RFW_PdfWidgetProps[] => {

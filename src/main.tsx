@@ -42,7 +42,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         twitchProps={{ parent: 'localhost' }}
       />
       <div style={{ height: "100px"}} /> */}
-      <div style={{ height: "600px"}} >
+      {/* <div style={{ height: "600px"}} >
         <FileWidget
           file={{ url: 'https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf' }}
           width="800px"
@@ -51,11 +51,49 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           pdfProps={{
             paginated: true,
             widgets: getDefaultWidgets(),
-            hidePageSelector: true,
+            hidePageSelector: false,
+            hideHeader: true
           }}
         />
       </div>
-      
+      <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/code/html/sample1.html' }}
+        width="800px"
+        height="100%"
+        renderers={AllRenderers}
+      />
+      */}
+       {/* <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/document/docx/sample1.docx' }}
+        width="800px"
+        height="100%"
+        renderers={AllRenderers}
+      /> */}
+      {/* <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/document/csv/sample2.csv' }}
+        width="800px"
+        height="100%"
+        renderers={AllRenderers}
+      /> */}
+      {/* <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/document/txt/sample1.txt' }}
+        width="800px"
+        height="100%"
+        renderers={AllRenderers}
+      />
+      <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/code/xml/sample2.xml' }}
+        width="800px"
+        height="100%"
+        renderers={AllRenderers}
+      /> */}
+      <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/code/json/sample2.json' }}
+        width="800px"
+        height="100%"
+        renderers={AllRenderers}
+      />
+
     </div>
   </React.StrictMode>
 );

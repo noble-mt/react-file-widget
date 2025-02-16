@@ -50,6 +50,9 @@ const PdfPageScrollWrapper = styled.div`
   justify-content: center;
   height: 100%;
   overflow: auto;
+  > div {
+    max-width: 100%;
+  }
 `
 
 const PdfRenderer: RFW_FileRenderer = () => {
