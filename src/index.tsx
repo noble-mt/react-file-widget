@@ -11,9 +11,8 @@ import { ZoomController } from "./renders/pdf/widgets/zoom-widget";
 import HTMLRender from "./renders/html/html";
 import MSDocRender from "./renders/msdoc/msdoc";
 import CSVRender from "./renders/csv/csv";
-import TextXmlRender from "./renders/textXml/textXml";
-import JSONRenderer from "./renders/json/json";
-import React from "react";
+import TextXmlRender from "./renders/text/text";
+import CodeRenderer from "./renders/code/code";
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -51,7 +50,7 @@ export {
   MSDocRender,
   CSVRender,
   TextXmlRender,
-  JSONRenderer
+  CodeRenderer
 }
 
 export const AllRenderers = [
@@ -65,7 +64,7 @@ export const AllRenderers = [
   MSDocRender,
   CSVRender,
   TextXmlRender,
-  JSONRenderer
+  CodeRenderer
 ];
 
 export const getDefaultWidgets = (): RFW_PdfWidgetProps[] => {

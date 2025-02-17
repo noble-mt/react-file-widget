@@ -46,6 +46,7 @@ export interface RFW_AppProps {
   inline?: boolean
   width?: string
   height?: string
+  theme?: 'light' | 'dark'
   videoProps?: {
     hideControls?: boolean
     muted?: boolean,

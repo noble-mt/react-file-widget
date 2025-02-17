@@ -16,30 +16,32 @@ export const Renderer = ({ renderers }: RendererProps) => {
   console.log('re-render', CurrentRenderer)
   useEffect(() => {
     if (document) {
-      if (!document.fileType && document.url) {
-        console.log('resetting')
+      if (!document.fileType && document?.url) {
         setCurrentRenderer(undefined);
         const extension = extractFileExtension(document.url);
         renderers?.some((Render) => {
           if (Render.supportUrlPatterns) {
-            if(Render.supportUrlPatterns.test(document.url)) {
+            if(Render.supportUrlPatterns.test(document.url ?? '')) {
               setCurrentRenderer(() => Render);
               return true;
             }
-          } else {
-            if (Render.supportedFileTypes?.find(ext => ext === extension)) {
-              console.log('matched', Render)
-              setCurrentRenderer(() => Render);
-              return true;
-            }
+          } else if (Render.supportedFileTypes?.find(ext => ext === extension)) {
+            setCurrentRenderer(() => Render);
+            return true;
           }
         });
         // if (!CurrentRenderer) {
         //   setCurrentRenderer(null)
         // }
-      } 
-      if (document.fileType) {
+      } else if (document.fileType) {
         // Todo local file data
+        setCurrentRenderer(undefined);
+        renderers?.some((Render) => {
+          if (Render.supportedFileTypes?.find(ext => ext === document.fileType)) {
+            setCurrentRenderer(() => Render);
+            return true;
+          }
+        });
       }
     }
   }, [document?.url, document?.fileType])

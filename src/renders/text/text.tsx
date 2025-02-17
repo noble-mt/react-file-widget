@@ -1,15 +1,14 @@
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { useEffect, useState } from "react";
-import Prism from "prismjs";
-import './textXml.css';
-
 
 const TextXmlRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>(file?.url ? "" : file?.fileData as string);
   const [error , SetError] = useState<boolean>(false);
+
+  console.log('here')
 
   useEffect(() => {
       if (file?.url) {
@@ -21,21 +20,10 @@ const TextXmlRender: RFW_FileRenderer = () => {
       }
   }, [file?.url]);
 
-
-  useEffect(() => {
-    if (content) {
-      Prism.highlightAll();
-    }
-  }, [content])
-
   return (
     <div id="txt-renderer" >
       <div id="txt" style={{width: config?.width, height: config?.height ?? 'auto' }} >
-        <pre>
-          <code className="language-xml"> 
-            {content}
-          </code>
-        </pre>
+        {content}
       </div>
     </div>
   );
@@ -43,5 +31,5 @@ const TextXmlRender: RFW_FileRenderer = () => {
 
 export default TextXmlRender;
 
-TextXmlRender.supportedFileTypes = ["txt", "xml"];
+TextXmlRender.supportedFileTypes = ["txt"];
 

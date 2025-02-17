@@ -8,7 +8,7 @@ const ImageRender: RFW_FileRenderer = () => {
 
   return (
     <div id="image-renderer" >
-      <img id="image-img" width={config?.width} height={config?.height ?? 'auto'} src={document?.url as string} />
+      <img id="image-img" width={config?.width ?? "100%"} height={config?.height ?? 'auto'} src={document?.url as string} />
     </div>
   );
 };

@@ -80,17 +80,21 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         width="800px"
         height="100%"
         renderers={AllRenderers}
-      />
-      <FileWidget
+      /> */}
+      {/* <FileWidget
         file={{ url: 'https://www.filesampleshub.com/download/code/xml/sample2.xml' }}
         width="800px"
         height="100%"
         renderers={AllRenderers}
+        theme="light"
+      /> */}
+      
+      {/* <FileWidget
+        file={{ url: 'https://www.filesampleshub.com/download/code/html/sample3.html' }}
+        renderers={AllRenderers}
       /> */}
       <FileWidget
-        file={{ url: 'https://www.filesampleshub.com/download/code/json/sample2.json' }}
-        width="800px"
-        height="100%"
+        file={{ fileData: "adfjalsdjf lakjsf <p>BOld</p><b>Parra</b> asdf asdf asdfalsdfj asdf asdfasdf asdf asdf asdf ", fileType: 'html'}}
         renderers={AllRenderers}
       />
 

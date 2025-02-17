@@ -1,0 +1,141 @@
+.parent-code-class-dark {
+    --rfw_code_styles-background-color: #272822;
+    --rfw_code_styles-text-color: #f8f8f2;
+    --rfw_code_styles-comment-color: #8292a2;
+    --rfw_code_styles-punctuation-color: #f8f8f2;
+    --rfw_code_styles-constant-color: #f92672;
+    --rfw_code_styles-boolean-color: #ae81ff;
+    --rfw_code_styles-string-color: #a6e22e;
+    --rfw_code_styles-function-color: #e6db74;
+    --rfw_code_styles-keyword-color: #66d9ef;
+    --rfw_code_styles-important-color: #fd971f;
+}
+
+.parent-code-class-light {
+    --rfw_code_styles-background-color: #ffffff;
+    --rfw_code_styles-text-color: #000000;
+    --rfw_code_styles-comment-color: #757575;
+    --rfw_code_styles-punctuation-color: #000000;
+    --rfw_code_styles-constant-color: #d32f2f;
+    --rfw_code_styles-boolean-color: #7b1fa2;
+    --rfw_code_styles-string-color: #388e3c;
+    --rfw_code_styles-function-color: #fbc02d;
+    --rfw_code_styles-keyword-color: #1976d2;
+    --rfw_code_styles-important-color: #f57c00;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: var(--rfw_code_styles-text-color);
+    background: 0 0;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+pre[class*="language-"] {
+    padding: 1em;
+    margin: 0.5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+    background: var(--rfw_code_styles-background-color);
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+    background: var(--rfw_code_styles-background-color);
+}
+
+:not(pre) > code[class*="language-"] {
+    padding: 0.1em;
+    border-radius: 0.3em;
+    white-space: normal;
+}
+
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
+    color: var(--rfw_code_styles-comment-color);
+}
+
+.token.punctuation {
+    color: var(--rfw_code_styles-punctuation-color);
+}
+
+.token.namespace {
+    opacity: 0.7;
+}
+
+.token.constant,
+.token.deleted,
+.token.property,
+.token.symbol,
+.token.tag {
+    color: var(--rfw_code_styles-constant-color);
+}
+
+.token.boolean,
+.token.number {
+    color: var(--rfw_code_styles-boolean-color);
+}
+
+.token.attr-name,
+.token.builtin,
+.token.char,
+.token.inserted,
+.token.selector,
+.token.string {
+    color: var(--rfw_code_styles-string-color);
+}
+
+.language-css .token.string,
+.style .token.string,
+.token.entity,
+.token.operator,
+.token.url,
+.token.variable {
+    color: var(--rfw_code_styles-text-color);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.class-name,
+.token.function {
+    color: var(--rfw_code_styles-function-color);
+}
+
+.token.keyword {
+    color: var(--rfw_code_styles-keyword-color);
+}
+
+.token.important,
+.token.regex {
+    color: var(--rfw_code_styles-important-color);
+}
+
+.token.bold,
+.token.important {
+    font-weight: 700;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
