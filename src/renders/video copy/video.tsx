@@ -1,6 +1,6 @@
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { PlayButton, VideoContainer } from "../../shared/wrapper-contr";
 import React from "react";
 
@@ -8,7 +8,6 @@ import React from "react";
 const VideoRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
-  const videoElement = useRef<HTMLVideoElement | null>(null);
 
   
   const [preConnected, setPreConnected] = React.useState(false);
@@ -16,17 +15,19 @@ const VideoRender: RFW_FileRenderer = () => {
 
   useEffect(() => {
     if (showVideo && config?.videoProps?.start) {
-      if (videoElement?.current) {
-        videoElement.current.currentTime = config?.videoProps?.start;
+      const myvideo: any = document?.getElementById?.('myvideo');
+      if (myvideo) {
+        myvideo.currentTime = config?.videoProps?.start;
       }
     }
   }, [config?.videoProps?.start, showVideo]);
 
   useEffect(() => {
     if (showVideo) {
-      if (videoElement?.current) {
-        videoElement.current.onloadeddata = () => {
-          videoElement?.current?.play?.();
+      const myvideo: any = document?.getElementById?.('myvideo');
+      if (myvideo) {
+        myvideo.onloadeddata = () => {
+          myvideo?.play?.();
         };
       }
     }
@@ -59,7 +60,7 @@ const VideoRender: RFW_FileRenderer = () => {
           <PlayButton />
           {showVideo ?
             <video
-              ref={videoElement}
+              id="myvideo"
               width={config?.width}
               height={config?.height ?? 'auto'}
               src={file?.url as string}
@@ -77,4 +78,4 @@ const VideoRender: RFW_FileRenderer = () => {
 
 export default VideoRender;
 
-VideoRender.supportedFileTypes = ["mp4", "webm", "ogg"];
+VideoRender.supportedFileTypes = ["mp4", "webm", "ogg", "wav"];

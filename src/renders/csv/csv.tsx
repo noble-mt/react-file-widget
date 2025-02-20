@@ -10,12 +10,44 @@ const Table = styled.table`
     border-collapse: collapse;
     background-color: white;
 
+    * {
+      box-sizing: border-box;
+    }
+
+    tbody{
+      display: block;
+      overflow-y: scroll;
+      scrollbar-width: thin;
+      scrollbar-color: gray white;
+      margin-right: -17px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: white;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 10px;
+        border: 2px solid white;
+      }
+    }
+    tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
     th, td {
         border: 1px solid gray;
         padding: 8px;
         text-align: left;
     }
-
+    thead tr {
+      // width: calc( 100% - 17px );
+    }
     th {
         background-color: #f2f2f2;
     }
@@ -67,9 +99,9 @@ const CSVRender: RFW_FileRenderer = () => {
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ height: config?.height ?? "100%" }}>
               {rowData.map((row, rowIndex) => (
-                <tr key={rowIndex}>
+                <tr key={rowIndex} >
                     {cols.map((_cell, cellIndex) => (
                       <td key={cellIndex}>{row?.[cellIndex]}</td>
                     ))}

@@ -1,6 +1,7 @@
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { useEffect } from "react";
+import { WrapperContainer } from "./../../shared/wrapper-contr";
 
 
 const HTMLRender: RFW_FileRenderer = () => {
@@ -23,9 +24,9 @@ const HTMLRender: RFW_FileRenderer = () => {
   }, []);
 
   return (
-    <div id="html-renderer" >
-      <iframe id="rfw_html_container" width={config?.width ?? "100%"} height={config?.height ?? 'auto'} sandbox="allow-same-origin" src={file?.url ?? ''} />
-    </div>
+    <WrapperContainer config={config}>
+      <iframe id="rfw_html_container" width="100%" height="100%"  sandbox="allow-same-origin" src={file?.url ?? ''} />
+    </WrapperContainer>
   );
 };
 

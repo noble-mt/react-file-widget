@@ -11,14 +11,14 @@ const ZoomContainer = styled.div(props => ({
     zIndex: "10"
 }))
 
-export const ZoomController = ({ currentPage, totalPages, zoomIn, zoomOut, rotateLeft, rotateRight }: RFW_WidgetComponentProperties) => {
+export const ZoomController = ({ pageProps, screenProps }: RFW_WidgetComponentProperties) => {
     
     const config = useGetConfig();
     return <ZoomContainer >
-        <button onClick={() => rotateLeft()}>Rotate Left</button>
-        <button onClick={() => zoomOut()}>Zoom Out</button>
-        <div style={{ width: "100px", textAlign: "center"}}>{currentPage} / {totalPages}</div>
-        <button onClick={() => zoomIn()}>Zoom In</button>
-        <button onClick={() => rotateRight()}>Rotate Right</button>
+        <button onClick={() => screenProps?.rotateLeft?.()}>Rotate Left</button>
+        <button onClick={() => screenProps?.zoomOut?.()}>Zoom Out</button>
+        <div style={{ width: "100px", textAlign: "center"}}>{pageProps?.currentPage} / {pageProps?.totalPages}</div>
+        <button onClick={() => screenProps?.zoomIn?.()}>Zoom In</button>
+        <button onClick={() => screenProps?.rotateRight?.()}>Rotate Right</button>
     </ZoomContainer>
 }

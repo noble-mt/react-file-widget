@@ -4,5 +4,7 @@ export interface RFW_File {
     url?: string;
     fileType?: string;
     fileData?: string | ArrayBuffer;
-    language?: RFW_Languages
+    language?: RFW_Languages,
+    title?: string,
+    fileName?: string
 }

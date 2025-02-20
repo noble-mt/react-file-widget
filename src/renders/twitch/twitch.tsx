@@ -3,7 +3,7 @@ import * as React from "react";
 import { RFW_FileRenderer } from "../../modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { convertSecondsToTwitchTime } from "../../utils/time";
-import { PlayButton, VideoContainer } from "../../shared/video-image-contr";
+import { PlayButton, VideoContainer } from "../../shared/wrapper-contr";
 export const MATCH_URL_TWITCH_VIDEO = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/
 export const MATCH_URL_TWITCH_CHANNEL = /(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)($|\?)/
 export const MATCH_URL_TWITCH_COLLECTION = /(?:www\.|go\.)?twitch\.tv\/collections\/([a-zA-Z0-9]+)($|\?)/

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { ContextProps } from 'context-provider';
 
 export const VideoContainer = styled.div`
     background-color: #000;
@@ -44,3 +45,39 @@ export const PlayButton = styled.div`
         border-color: transparent transparent transparent #fff;
     }
 `;
+
+
+export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
+    const { width, height } = props.config ?? {};
+    return {
+        width: width ?? "100%",
+        maxHeight: height ?? "auto",
+        overflow: "auto",
+        scrollbarWidth: "thin",
+        scrollbarColor: "gray white",
+        boxSizing: "border-box",
+
+        iframe: {
+            boxSizing: "border-box",
+            width: width ?? "100%",
+            height: height ?? "auto",
+            marginTop: "-4px",
+            border: "none",
+        },
+
+        "&::-webkit-scrollbar": {
+            width: "6px",
+        },
+
+        "&::-webkit-scrollbar-track": {
+            background: "white",
+            borderRadius: "10px",
+        },
+
+        "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "gray",
+            borderRadius: "10px",
+            border: "2px solid white",
+        }
+    }
+});

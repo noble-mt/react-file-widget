@@ -3,7 +3,7 @@ import { CSSProperties } from "react"
 export interface RFW_SlotsClassNames {
     root?: string,
     header?: string,
-    zoom?: string
+    error?: string
 }
 
 export interface RFW_SlotStyleProps {

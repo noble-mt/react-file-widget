@@ -1,5 +1,5 @@
 import { Renderer } from "./renders";
-import { RFW_AppProps, RFW_PdfWidgetProps } from "./modals/app-props";
+import { RFW_AppProps } from "./modals/app-props";
 import ImageRender from "./renders/image/image";
 import { AppProvider } from "./context-provider";
 import VideoRender from "./renders/video/video";
@@ -13,6 +13,7 @@ import MSDocRender from "./renders/msdoc/msdoc";
 import CSVRender from "./renders/csv/csv";
 import TextXmlRender from "./renders/text/text";
 import CodeRenderer from "./renders/code/code";
+import AudioRenderer from "./renders/audio/audio";
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -28,7 +29,7 @@ export const FileWidget = (props: RFW_AppProps) => {
       <div
         id="react-file-widget"
         data-testid="react-file-widget"
-        className={`rfw-root ${rest?.classNames?.root}`}
+        className={`rfw-root ${rest?.classNames?.root ?? ''}`}
         style={rest?.slotProps?.root}
       > 
         <Renderer renderers={renderers ?? []} />
@@ -50,7 +51,8 @@ export {
   MSDocRender,
   CSVRender,
   TextXmlRender,
-  CodeRenderer
+  CodeRenderer,
+  AudioRenderer
 }
 
 export const AllRenderers = [
@@ -64,9 +66,6 @@ export const AllRenderers = [
   MSDocRender,
   CSVRender,
   TextXmlRender,
-  CodeRenderer
+  CodeRenderer,
+  AudioRenderer
 ];
-
-export const getDefaultWidgets = (): RFW_PdfWidgetProps[] => {
-  return  [{ position: 'bottom', component: ZoomController}]
-}

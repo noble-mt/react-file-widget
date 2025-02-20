@@ -1,6 +1,7 @@
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { useEffect, useState } from "react";
+import { WrapperContainer } from "./../../shared/wrapper-contr";
 
 const TextXmlRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
@@ -21,11 +22,9 @@ const TextXmlRender: RFW_FileRenderer = () => {
   }, [file?.url]);
 
   return (
-    <div id="txt-renderer" >
-      <div id="txt" style={{width: config?.width, height: config?.height ?? 'auto' }} >
-        {content}
-      </div>
-    </div>
+    <WrapperContainer config={config}>
+      {content}
+    </WrapperContainer>
   );
 };
 

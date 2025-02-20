@@ -2,40 +2,12 @@ import { ReactNode } from "react";
 import { RFW_File } from "./file";
 import { RFW_FileRenderer } from "./render";
 import { RFW_SlotsClassNames, RFW_SlotStyleProps } from "./slots";
+import { RFW_PdfWidgetProps } from "./widget-props";
 
 export type POSTER_QUALITY = 'low' | "medium" | 'high';
 export type CACHE_POLICY = 'prefetch' | 'preload';
 
 export type PDF_MODES = 'two_page_view' | 'single_page_view';
-
-
-export interface RFW_WidgetComponentProperties {
-  currentZoom: number,
-  currentPage: number,
-  totalPages: number,
-  currentMode: PDF_MODES,
-  paginated?: boolean,
-  currentRotation?: number,
-  setZoom: (newZoom: number) => void,
-  zoomIn: (increment?: number) => void,
-  zoomOut: (decrement?: number) => void,
-  goToPage: (page: number) => void,
-  nextPage: () => void,
-  prevPage: () => void,
-  changeMode: (mode: PDF_MODES) => void,
-  togglePagination: (paginated: boolean) => void,
-  rotateLeft: () => void,
-  rotateRight: () => void,
-}
-
-export  type RFW_WidgetComponentProps = (props: RFW_WidgetComponentProperties) => ReactNode;
-
-
-export  type RFW_PdfWidgetProps = {
-  position: 'left' | 'right' | 'top' | 'bottom',
-  component: RFW_WidgetComponentProps
-}
-
 
 
 export interface RFW_AppProps {
@@ -46,7 +18,9 @@ export interface RFW_AppProps {
   inline?: boolean
   width?: string
   height?: string
+  maxHeight?: string
   theme?: 'light' | 'dark'
+  hideHeader?: boolean,
   videoProps?: {
     hideControls?: boolean
     muted?: boolean,
@@ -69,9 +43,9 @@ export interface RFW_AppProps {
   // },
   twitchProps?: {
     parent?: string
-  }
+  },
+  widgets?: RFW_PdfWidgetProps[],
   pdfProps?: {
-    widgets: RFW_PdfWidgetProps[],
     currentPage?: number,
     zoom?: number,
     paginated?: boolean,
@@ -79,6 +53,6 @@ export interface RFW_AppProps {
     rotation?: number,
     onLoad?: (totalPages: number) => void,
     hidePageSelector?: boolean,
-    hideHeader?: boolean,
+    pageSelectorPosition: 'left' | 'right' | 'bottom' | 'top'
   }
 }

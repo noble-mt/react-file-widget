@@ -1,7 +1,7 @@
 import { RFW_AppProps, RFW_File } from "modals";
 import React, { createContext, FC, ReactNode, useEffect, useState } from "react";
 
-interface ContextProps extends Omit<RFW_AppProps, 'file' | 'renderers'> {
+export interface ContextProps extends Omit<RFW_AppProps, 'file' | 'renderers'> {
   
 }
 

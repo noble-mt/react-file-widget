@@ -6,6 +6,7 @@ import "./code.css";
 import { RFW_codeLangExtensions } from "./../../modals/code-lang";
 import { getPrimsSyntaxTypeForCode } from "../../utils/file-extensions";
 import 'prismjs/plugins/autoloader/prism-autoloader';
+import { WrapperContainer } from "./../../shared/wrapper-contr";
 Prism.plugins.autoloader.languages_path = `https://unpkg.com/prismjs@latest/components/`;
 
 
@@ -36,17 +37,11 @@ const CodeRenderer: RFW_FileRenderer = () => {
   const lang = file?.language ?? getPrimsSyntaxTypeForCode(file?.url ?? '')
 
   return (
-    <div id="txt-renderer">
-      <div
-        id="txt"
-        style={{ width: config?.width ?? "100%", height: config?.height ?? "auto" }}
-        className={config?.theme === 'light' ? "parent-code-class-light" : "parent-code-class-dark"}
-      >
-        <pre>
-          <code className={`language-${lang}`} ref={codeElement}>{content}</code>
-        </pre>
-      </div>
-    </div>
+    <WrapperContainer config={config} className={config?.theme === 'light' ? "parent-code-class-light" : "parent-code-class-dark"}>
+      <pre>
+        <code className={`language-${lang}`} ref={codeElement}>{content}</code>
+      </pre>
+    </WrapperContainer>
   );
 };
 

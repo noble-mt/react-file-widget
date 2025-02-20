@@ -1,7 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { extractFileExtension } from "../utils/file-extensions";
 import { RFW_FileRenderer } from "modals";
-import { useGetDocument } from "../utils/context-helpers";
+import { useGetConfig, useGetDocument } from "../utils/context-helpers";
+import ErrorPage from "./../shared/error-page";
+import { Header } from "./../shared/header";
 
 interface RendererProps {
   renderers: RFW_FileRenderer[];
@@ -10,16 +12,16 @@ interface RendererProps {
 
 export const Renderer = ({ renderers }: RendererProps) => {
   const document = useGetDocument();
+  const config = useGetConfig();
 
   const [CurrentRenderer, setCurrentRenderer] = useState<RFW_FileRenderer | undefined | null >(undefined);
 
-  console.log('re-render', CurrentRenderer)
   useEffect(() => {
     if (document) {
       if (!document.fileType && document?.url) {
         setCurrentRenderer(undefined);
         const extension = extractFileExtension(document.url);
-        renderers?.some((Render) => {
+        const matched = renderers?.some((Render) => {
           if (Render.supportUrlPatterns) {
             if(Render.supportUrlPatterns.test(document.url ?? '')) {
               setCurrentRenderer(() => Render);
@@ -30,9 +32,9 @@ export const Renderer = ({ renderers }: RendererProps) => {
             return true;
           }
         });
-        // if (!CurrentRenderer) {
-        //   setCurrentRenderer(null)
-        // }
+        if (!matched) {
+          setCurrentRenderer(null)
+        }
       } else if (document.fileType) {
         // Todo local file data
         setCurrentRenderer(undefined);
@@ -48,11 +50,13 @@ export const Renderer = ({ renderers }: RendererProps) => {
 
   return (
     <>
+    
+      {config?.hideHeader ? '' : <Header />}
       {CurrentRenderer === undefined ? (
         <div>Loading</div>
       ): ''}
       {CurrentRenderer === null ? (
-        <div>Not Matched-</div>
+        <ErrorPage  />
       ): ''}
       {CurrentRenderer ? (
         <CurrentRenderer  />

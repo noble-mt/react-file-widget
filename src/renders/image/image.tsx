@@ -15,4 +15,4 @@ const ImageRender: RFW_FileRenderer = () => {
 
 export default ImageRender;
 
-ImageRender.supportedFileTypes = ["jpeg", "jpg", "bmp", "png", "gif"];
+ImageRender.supportedFileTypes = ["jpeg", "jpg", "bmp", "png", "gif", "svg"];

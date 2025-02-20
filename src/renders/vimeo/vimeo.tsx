@@ -3,7 +3,7 @@ import * as React from "react";
 import { POSTER_QUALITY, RFW_FileRenderer } from "../../modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { convertSecondsToVimeoTime } from "../../utils/time";
-import { VideoContainer, PlayButton } from "../../shared/video-image-contr";
+import { VideoContainer, PlayButton } from "../../shared/wrapper-contr";
 const MATCH_URL_VIMEO = /(?:http|https)?:?\/?\/?(?:www\.)?(?:player\.)?vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|video\/|)(\d+)(?:|\/\?)/;
 const baseUrl = "https://player.vimeo.com";
 const apiUrl = "https://vimeo.com/api/v2/video";
@@ -113,6 +113,7 @@ const VimeoRender: RFW_FileRenderer = () => {
           <PlayButton />
           {showVideo ? (
             <iframe
+              style={{ backgroundColor: 'black' }}
               title={''}
               width={config?.width ?? "100%"}
               height={config?.height ?? '100%'}

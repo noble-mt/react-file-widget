@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { PlayButton, VideoContainer } from "../../shared/video-image-contr";
+import { PlayButton, VideoContainer } from "../../shared/wrapper-contr";
 const MATCH_URL_YOUTUBE = /(?:youtu\.be\/|youtube(?:-nocookie|education)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//
 const MATCH_PLAYLIST = /[?&](?:list|channel)=([a-zA-Z0-9_-]+)/
 const MATCH_USER_UPLOADS = /user\/([a-zA-Z0-9_-]+)\/?/
