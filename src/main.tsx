@@ -9,90 +9,90 @@ import { PageSelector } from "./renders/pdf/components/page-selector";
 
 const App = () => {
   const Files = [
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/html/sample2.html'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/xls/sample2.xls'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/txt/sample2.txt'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/pptx/sample2.pptx'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/doc/sample2.doc'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/csv/sample2.csv'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/svg/sample2.svg'
-    },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/code/html/sample2.html'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/xls/sample2.xls'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/txt/sample2.txt'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/pptx/sample2.pptx'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/doc/sample2.doc'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/document/csv/sample2.csv'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/image/svg/sample2.svg'
+    // },
     {
       title: 'This is a header Example',
       url: 'https://www.filesampleshub.com/download/image/png/sample2.png'
     },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/jpg/sample2.jpg'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/bmp/sample2.bmp'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/yaml/sample2.yaml'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/xml/sample2.xml'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/json/sample2.json'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/audio/wav/sample2.WAV'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://player.vimeo.com/video/90509568'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4'
-    },
-    {
-      title: 'This is a header Example',
-      url: 'https://www.twitch.tv/bean'
-    }
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/image/jpg/sample2.jpg'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/image/bmp/sample2.bmp'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/code/yaml/sample2.yaml'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/code/xml/sample2.xml'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/code/json/sample2.json'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.filesampleshub.com/download/audio/wav/sample2.WAV'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://player.vimeo.com/video/90509568'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4'
+    // },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://www.twitch.tv/bean'
+    // }
   ];
   return (
     <>
@@ -103,6 +103,7 @@ const App = () => {
             renderers={AllRenderers}
             width="100%"
             height="700px"
+            // inline
             videoProps={{
               disablePreLoad: true
             }}

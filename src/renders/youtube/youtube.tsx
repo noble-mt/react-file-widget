@@ -73,10 +73,10 @@ const YoutubeRender: RFW_FileRenderer = () => {
       <VideoContainer
         onPointerOver={() => setPreConnected(true)}
         onClick={() => setShowVideo(true)}
-        // data-title={videoMeta?.title}
+        className="video-container"
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
+          // width: config?.width ?? "100%",
+          // height: config?.height ?? '100%',
           backgroundImage: `url(${posterUrl})`,
           ...({
           } as React.CSSProperties),

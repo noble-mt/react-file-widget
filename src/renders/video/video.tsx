@@ -47,10 +47,11 @@ const VideoRender: RFW_FileRenderer = () => {
       <VideoContainer
         onPointerOver={warmUpTheUrl}
         onClick={handleEnableVideo}
+        className="video-container"
         // data-title={videoMeta?.title}
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
+          // width: config?.width ?? "100%",
+          // height: config?.height ?? '100%',
           backgroundImage: `url(${config?.videoProps?.poster})`,
           ...({
           } as React.CSSProperties),

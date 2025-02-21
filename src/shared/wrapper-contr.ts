@@ -48,10 +48,10 @@ export const PlayButton = styled.div`
 
 
 export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
-    const { width, height } = props.config ?? {};
+    const { width, height, inline, hideHeader } = props.config ?? {};
     return {
         width: width ?? "100%",
-        maxHeight: height ?? "auto",
+        maxHeight: inline ? (height ?? "auto") : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
         overflow: "auto",
         scrollbarWidth: "thin",
         scrollbarColor: "gray white",
@@ -78,6 +78,22 @@ export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
             backgroundColor: "gray",
             borderRadius: "10px",
             border: "2px solid white",
+        }
+    }
+});
+
+export const RootContainer = styled.div<{ config?: ContextProps }>(props => {
+    const { inline, hideHeader } = props.config ?? {};
+    return inline ? {
+    } : {
+        width: "100%",
+        height: "100vh",
+        position: 'absolute',
+        top: '0px',
+        left:0,
+
+        ".video-container": {
+            height: hideHeader ? "100vh" : "calc(100vh - 64px)"
         }
     }
 });
