@@ -1,21 +1,24 @@
 import styled from '@emotion/styled';
-import { useGetDocument } from './../utils/context-helpers';
+import { useGetConfig, useGetDocument } from './../utils/context-helpers';
+import { ContextProps } from '../context-provider';
 
-const HeaderContainer = styled.div({
+const HeaderContainer = styled.div<{ config?: ContextProps }>(props => ({
     top: '10px',
-    width: "100%",
+    width: props?.config?.width ?? "100%",
     height: "40px",
     display: "flex",
     alignItems: "center",
     zIndex: "10",
     padding: '32px',
-    backgroundColor: 'green',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     boxSizing: 'border-box'
-})
+}));
 
 export const Header = () => {
     const file = useGetDocument();
-    return <HeaderContainer >
-        <h3>{file?.title}</h3>
+    const config = useGetConfig();
+    return <HeaderContainer config={config} >
+        <h3>{file?.title ?? file?.fileName ?? file?.file?.name}</h3>
     </HeaderContainer>
 }

@@ -15,8 +15,8 @@ export const VideoContainer = styled.div`
         padding-bottom: 56%;
     }
     iframe, video, .video {
-        width: 100%;
-        height: 100%;
+        // width: 100%;
+        // height: 100%;
         position: absolute;
         top: 0;
         left: 0;
@@ -48,20 +48,22 @@ export const PlayButton = styled.div`
 
 
 export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
-    const { width, height, inline, hideHeader } = props.config ?? {};
+    const { width, height, inline, hideHeader, theme } = props.config ?? {};
     return {
         width: width ?? "100%",
-        maxHeight: inline ? (height ?? "auto") : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
+        height: inline ? undefined : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
+        maxHeight: inline ? (height ?? "auto") : undefined,
         overflow: "auto",
         scrollbarWidth: "thin",
         scrollbarColor: "gray white",
         boxSizing: "border-box",
+        backgroundColor: theme === 'light' ? "#ffffff" : "#f0f0f0", // Suggesting a good white background
 
         iframe: {
             boxSizing: "border-box",
             width: width ?? "100%",
-            height: height ?? "auto",
-            marginTop: "-4px",
+            height: inline ? (height ?? "auto") : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
+            marginTop: "-8px",
             border: "none",
         },
 

@@ -41,6 +41,16 @@ const VideoRender: RFW_FileRenderer = () => {
     setPreConnected(true);
   }
 
+  useEffect(() => {
+    if (file?.file && videoElement.current) {
+      const objectUrl = URL.createObjectURL(file?.file);
+      videoElement.current.src = objectUrl;
+      return () => URL.revokeObjectURL(objectUrl);
+    } else if (file?.url && videoElement.current) {
+      videoElement.current.src = file?.url;
+    }
+  }, [file?.file, showVideo]);
+
   return (
     <div id="video-renderer" >
       {preConnected ? <link rel="preconnect" href={file?.url} /> : ''}
@@ -50,8 +60,8 @@ const VideoRender: RFW_FileRenderer = () => {
         className="video-container"
         // data-title={videoMeta?.title}
         style={{
-          // width: config?.width ?? "100%",
-          // height: config?.height ?? '100%',
+          width: config?.width ?? "100%",
+          height: config?.height ?? '100%',
           backgroundImage: `url(${config?.videoProps?.poster})`,
           ...({
           } as React.CSSProperties),
@@ -63,7 +73,6 @@ const VideoRender: RFW_FileRenderer = () => {
               ref={videoElement}
               width={config?.width}
               height={config?.height ?? 'auto'}
-              src={file?.url as string}
               controls={!config?.videoProps?.hideControls}
               autoPlay={config?.videoProps?.autoplay}
               loop={config?.videoProps?.loop}
@@ -78,4 +87,4 @@ const VideoRender: RFW_FileRenderer = () => {
 
 export default VideoRender;
 
-VideoRender.supportedFileTypes = ["mp4", "webm", "ogg"];
+VideoRender.supportedFileTypes = ["mp4", "webm", "ogg", "video/mp4", "video/webm", "video/ogg"];

@@ -36,10 +36,21 @@ export const Renderer = ({ renderers }: RendererProps) => {
           setCurrentRenderer(null)
         }
       } else if (document.fileType) {
-        // Todo local file data
+        // Passing File type by custom. Is used for code demo
         setCurrentRenderer(undefined);
         renderers?.some((Render) => {
           if (Render.supportedFileTypes?.find(ext => ext === document.fileType)) {
+            setCurrentRenderer(() => Render);
+            return true;
+          }
+        });
+      } else if (document.file) {
+        // Todo local file data
+        setCurrentRenderer(undefined);
+        const fileType = document.file?.type?.toLowerCase();
+        console.log(document.file)
+        renderers?.some((Render) => {
+          if (Render.supportedFileTypes?.find(ext => ext === fileType)) {
             setCurrentRenderer(() => Render);
             return true;
           }

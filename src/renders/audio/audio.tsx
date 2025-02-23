@@ -16,13 +16,22 @@ const AudioRenderer: RFW_FileRenderer = () => {
       }
     }, [config?.videoProps?.start]);
 
+    useEffect(() => {
+      if (file?.file && audioElement.current) {
+        const objectUrl = URL.createObjectURL(file?.file);
+        audioElement.current.src = objectUrl;
+        return () => URL.revokeObjectURL(objectUrl);
+      } else if (file?.url && audioElement.current) {
+        audioElement.current.src = file?.url;
+      }
+    }, [file?.file]);
+
   return (
     <div id="audio-renderer" >
       <audio
         id="rfw_audio"
         ref={audioElement}
         style={{ width: config?.width ?? "100%"}}
-        src={file?.url as string}
         controls={!config?.videoProps?.hideControls}
         autoPlay={config?.videoProps?.autoplay}
         loop={config?.videoProps?.loop}
@@ -35,4 +44,4 @@ const AudioRenderer: RFW_FileRenderer = () => {
 
 export default AudioRenderer;
 
-AudioRenderer.supportedFileTypes = ["wav", "mp3", "ogg"];
+AudioRenderer.supportedFileTypes = ["wav", "mp3", "ogg", "audio/wav", "audio/mp3", "audio/ogg", "audio/mpeg"];

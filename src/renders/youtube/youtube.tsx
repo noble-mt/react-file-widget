@@ -75,8 +75,8 @@ const YoutubeRender: RFW_FileRenderer = () => {
         onClick={() => setShowVideo(true)}
         className="video-container"
         style={{
-          // width: config?.width ?? "100%",
-          // height: config?.height ?? '100%',
+          width: config?.width ?? "100%",
+          height: config?.height ?? '100%',
           backgroundImage: `url(${posterUrl})`,
           ...({
           } as React.CSSProperties),

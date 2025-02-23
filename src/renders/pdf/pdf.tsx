@@ -1,11 +1,11 @@
 import { RFW_FileRenderer } from "../../modals/render";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { PDF_MODES } from "../../modals";
 import styled from '@emotion/styled';
-import { Header } from "../../shared/header";
 import { PageSelector } from "./components/page-selector";
+import { WrapperContainer } from "../../shared/wrapper-contr";
 const getFlexDirectionForPosition = (position?: string) => {
   if (position === 'left') {
     return 'row-reverse'
@@ -23,14 +23,7 @@ const getFlexDirectionForPosition = (position?: string) => {
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-const PdfContainer = styled.div<{ height?: string }>(props => ({
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  alignItems: 'center',
-  height: props?.height ?? '100%',
-}));
+
 
 const PdfWidgetMainContainer = styled.div<{ hidePageSelector?: boolean }>(props => ({
   display: 'flex',
@@ -50,7 +43,8 @@ const PdfDisplayMainContainer = styled.div<{ position?: string }>(props => ({
   justifyContent: 'center',
   flexDirection: getFlexDirectionForPosition(props.position),
   flexGrow: 1,
-  overflow: 'auto'
+  overflow: 'auto',
+  height: "100%"
 }));
 
 const PdfPageListWrapper = styled.div`
@@ -96,6 +90,8 @@ const PdfRenderer: RFW_FileRenderer = () => {
   const [paginated, setPaginated] = React.useState<boolean>(config?.pdfProps?.paginated ?? false);
   const [numPages, setNumPages] = React.useState<number>(0);
   const [rotate, setRotate] = React.useState<number>(0);
+  const pdfContainerRef = useRef<HTMLDivElement>(null);
+  const [pageWidth, setPageWidth] = React.useState<number>(300);
 
   useEffect(() => {
     setCurrentMode(config?.pdfProps?.mode ?? 'single_page_view');
@@ -121,6 +117,10 @@ const PdfRenderer: RFW_FileRenderer = () => {
   const onLoad = (totalPages: number) => {
     setNumPages(totalPages);
     config?.pdfProps?.onLoad?.(totalPages);
+
+    if (pdfContainerRef.current) {
+      setPageWidth(pdfContainerRef.current?.clientWidth);
+    }
   }
 
 
@@ -162,10 +162,11 @@ const PdfRenderer: RFW_FileRenderer = () => {
   const rotateRight = () => {
     setRotate(prev => (prev + 90) % 360);
   }
+
   return (
-    <PdfContainer height={config?.height}>
+    <WrapperContainer config={config}>
       <PdfDisplayMainContainer position={config?.pdfProps?.pageSelectorPosition}>
-        <PdfWidgetMainContainer hidePageSelector={config?.pdfProps?.hidePageSelector}>
+        <PdfWidgetMainContainer hidePageSelector={config?.pdfProps?.hidePageSelector} ref={pdfContainerRef}>
           {file && config?.widgets?.map((Widget) => <Widget
             pageProps={{
               totalPages: numPages,
@@ -191,7 +192,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
           />)}
           <PdfPageScrollWrapper>
             <Document
-              file={file?.url}
+              file={file?.url ?? file?.file}
               onLoadSuccess={({ numPages }) => onLoad(numPages)}
               loading={<span>Loading...</span>}
             >
@@ -202,8 +203,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
                     renderTextLayer={false}
                     renderAnnotationLayer={false}
                     rotate={rotate}
-                    // height={(rendererRect?.height || 100) - 100}
-                    // width={(rendererRect?.width || 100) - 100}
+                    width={pageWidth}
                   />
                 ): (<>
                 <PdfPageListWrapper>
@@ -213,6 +213,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
                             pageNumber={index + 1}
                             renderTextLayer={false}
                             renderAnnotationLayer={false}
+                            width={pageWidth}
                         />
                     ))}
                   </PdfPageListWrapper>
@@ -222,7 +223,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
         </PdfWidgetMainContainer>
         {config?.pdfProps?.hidePageSelector ? '' : <PageSelector totalPages={numPages} goToPage={goToPage} />}
       </PdfDisplayMainContainer>
-    </PdfContainer>
+    </WrapperContainer>
   );
 };
 

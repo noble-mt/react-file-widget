@@ -12,6 +12,8 @@ const MSDocRender: RFW_FileRenderer = () => {
       {document?.url ? (
         <iframe
           id="msdoc-iframe"
+          width="100%"
+          height="100%"
           title="msdoc-iframe"
           src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(
             document.url
@@ -25,4 +27,18 @@ const MSDocRender: RFW_FileRenderer = () => {
 
 export default MSDocRender;
 
-MSDocRender.supportedFileTypes = ["doc", "docx", "xlsx", "ppt", "pptx", "xls"];
+MSDocRender.supportedFileTypes = [
+  "doc",
+  "application/msword",
+  "docx",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "xls",
+  "application/vnd.ms-excel",
+  "xlsx",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "ppt",
+  "application/vnd.ms-powerpoint",
+  "pptx",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  "xls"
+];

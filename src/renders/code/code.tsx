@@ -13,7 +13,7 @@ Prism.plugins.autoloader.languages_path = `https://unpkg.com/prismjs@latest/comp
 const CodeRenderer: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
-  const [content, setContent] = useState<string>(file?.url ? "" : file?.fileData as string);
+  const [content, setContent] = useState<string>(file?.url ? "" : file?.data as string);
   const [error, SetError] = useState<boolean>(false);
   const codeElement = useRef<HTMLElement | null>(null);
 

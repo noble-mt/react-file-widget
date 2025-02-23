@@ -48,7 +48,7 @@ export const PageSelector = ({  totalPages, goToPage }: { goToPage: (page: numbe
     const vertical = config?.pdfProps?.pageSelectorPosition !== 'top' && config?.pdfProps?.pageSelectorPosition !== 'bottom';
     return <PageSelectorContainer vertical={vertical}>
         <Document
-            file={file?.url}
+            file={file?.url ?? file?.file}
             loading={<span>Loading...</span>}
           >
             <PageWrapper vertical={vertical}>
