@@ -3,7 +3,7 @@ import * as React from "react";
 import { POSTER_QUALITY, RFW_FileRenderer } from "../../modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { convertSecondsToVimeoTime } from "../../utils/time";
-import { VideoContainer, PlayButton } from "../../shared/wrapper-contr";
+import { VideoContainer, PlayButton, WrapperContainer } from "../../shared/wrapper-contr";
 const MATCH_URL_VIMEO = /(?:http|https)?:?\/?\/?(?:www\.)?(?:player\.)?vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|video\/|)(\d+)(?:|\/\?)/;
 const baseUrl = "https://player.vimeo.com";
 const apiUrl = "https://vimeo.com/api/v2/video";
@@ -94,24 +94,23 @@ const VimeoRender: RFW_FileRenderer = () => {
   }, [config?.videoProps?.poster, config?.videoProps?.disablePreLoad, config?.videoProps?.posterQuality, videoMeta])
 
   return (
-    <div id="vimeo-renderer" style={{ width: "100%"}}>
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {/* <link rel={config?.videoProps?.preLoadMethod ?? 'preload'} href={baseUrl} as="image" /> */}
       {preConnected && iframeSrc ? <link rel="preconnect" href={iframeSrc} /> : ''}
       <VideoContainer
         onPointerOver={() => setPreConnected(true)}
         onClick={() => setShowVideo(true)}
         data-title={videoMeta?.title}
-        className="video-container"
+        config={config}
+        className={`video-container ${config?.classNames?.videoContainer}`}
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
           backgroundImage: posterUrl ? `url(${posterUrl})` : '',
           ...({
             '--aspect-ratio': `${(9 / 15) * 100}%`,
           } as React.CSSProperties),
         }}
         >
-          <PlayButton />
+          <PlayButton  config={config} className={config?.classNames?.playButton} />
           {showVideo ? (
             <iframe
               style={{ backgroundColor: 'black' }}
@@ -125,7 +124,7 @@ const VimeoRender: RFW_FileRenderer = () => {
             ></iframe>
           ): ''}
         </VideoContainer>
-    </div>
+    </WrapperContainer>
   );
 };
 

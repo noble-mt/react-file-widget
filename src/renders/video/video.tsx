@@ -1,7 +1,7 @@
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { useEffect, useRef } from "react";
-import { PlayButton, VideoContainer } from "../../shared/wrapper-contr";
+import { PlayButton, VideoContainer, WrapperContainer } from "../../shared/wrapper-contr";
 import React from "react";
 
 
@@ -52,22 +52,20 @@ const VideoRender: RFW_FileRenderer = () => {
   }, [file?.file, showVideo]);
 
   return (
-    <div id="video-renderer" >
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {preConnected ? <link rel="preconnect" href={file?.url} /> : ''}
       <VideoContainer
         onPointerOver={warmUpTheUrl}
         onClick={handleEnableVideo}
-        className="video-container"
-        // data-title={videoMeta?.title}
+        config={config}
+        className={`video-container ${config?.classNames?.videoContainer}`}
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
           backgroundImage: `url(${config?.videoProps?.poster})`,
           ...({
           } as React.CSSProperties),
         }}
         >
-          <PlayButton />
+          <PlayButton config={config} className={config?.classNames?.playButton}/>
           {showVideo ?
             <video
               ref={videoElement}
@@ -81,7 +79,7 @@ const VideoRender: RFW_FileRenderer = () => {
             />
           : ''}
       </VideoContainer>
-    </div>
+    </WrapperContainer>
   );
 };
 

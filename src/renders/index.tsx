@@ -4,6 +4,7 @@ import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../utils/context-helpers";
 import ErrorPage from "./../shared/error-page";
 import { Header } from "./../shared/header";
+import Loading from "../shared/Loading";
 
 interface RendererProps {
   renderers: RFW_FileRenderer[];
@@ -38,23 +39,28 @@ export const Renderer = ({ renderers }: RendererProps) => {
       } else if (document.fileType) {
         // Passing File type by custom. Is used for code demo
         setCurrentRenderer(undefined);
-        renderers?.some((Render) => {
+        const matched = renderers?.some((Render) => {
           if (Render.supportedFileTypes?.find(ext => ext === document.fileType)) {
             setCurrentRenderer(() => Render);
             return true;
           }
         });
+        if (!matched) {
+          setCurrentRenderer(null)
+        }
       } else if (document.file) {
         // Todo local file data
         setCurrentRenderer(undefined);
         const fileType = document.file?.type?.toLowerCase();
-        console.log(document.file)
-        renderers?.some((Render) => {
+        const matched = renderers?.some((Render) => {
           if (Render.supportedFileTypes?.find(ext => ext === fileType)) {
             setCurrentRenderer(() => Render);
             return true;
           }
         });
+        if (!matched) {
+          setCurrentRenderer(null)
+        }
       }
     }
   }, [document?.url, document?.fileType])
@@ -64,7 +70,7 @@ export const Renderer = ({ renderers }: RendererProps) => {
     
       {config?.hideHeader ? '' : <Header />}
       {CurrentRenderer === undefined ? (
-        <div>Loading</div>
+        <Loading />
       ): ''}
       {CurrentRenderer === null ? (
         <ErrorPage  />

@@ -101,7 +101,7 @@ const ImageRender: RFW_FileRenderer = () => {
   console.log('scale', imageScale, containerWidth, imageNaturalWidth, containerHeight,)
 
   return (
-    <WrapperContainer config={{ ...config, height: config?.height ?? recHeight }} ref={imageContainerRef} >
+    <WrapperContainer config={{ ...config, height: config?.height ?? recHeight }}  className={config?.classNames?.content} ref={imageContainerRef} >
       {imageScale > 0 && (
         <TransformWrapper
           key={`${containerWidth}x${containerHeight}`}
@@ -109,7 +109,7 @@ const ImageRender: RFW_FileRenderer = () => {
           minScale={imageScale}
           maxScale={imageScale * zoomFactor}
         >
-        <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
+        <TransformComponent wrapperStyle={{ width: config?.width ?? "100%", height: config?.height ?? recHeight ?? "100%" }}>
           <img ref={imageRef} src={document?.url  ?? imageDate} />
         </TransformComponent>
       </TransformWrapper>

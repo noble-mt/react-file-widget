@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { PlayButton, VideoContainer } from "../../shared/wrapper-contr";
+import { PlayButton, VideoContainer, WrapperContainer } from "../../shared/wrapper-contr";
 const MATCH_URL_YOUTUBE = /(?:youtu\.be\/|youtube(?:-nocookie|education)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//
 const MATCH_PLAYLIST = /[?&](?:list|channel)=([a-zA-Z0-9_-]+)/
 const MATCH_USER_UPLOADS = /user\/([a-zA-Z0-9_-]+)\/?/
@@ -67,22 +67,21 @@ const YoutubeRender: RFW_FileRenderer = () => {
   })();
 
   return (
-    <div id="youtube-renderer" >
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {id ? <link rel={config?.videoProps?.preLoadMethod ?? 'preload'} href={ytUrl} as="image" /> : ''}
       {preConnected && iframeSrc ? <link rel="preconnect" href={iframeSrc} /> : ''}
       <VideoContainer
         onPointerOver={() => setPreConnected(true)}
         onClick={() => setShowVideo(true)}
-        className="video-container"
+        config={config}
+        className={`video-container ${config?.classNames?.videoContainer}`}
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
           backgroundImage: `url(${posterUrl})`,
           ...({
           } as React.CSSProperties),
         }}
         >
-          <PlayButton />
+          <PlayButton  config={config} className={config?.classNames?.playButton} />
         {showVideo ?
           <iframe
             title={''}
@@ -95,7 +94,7 @@ const YoutubeRender: RFW_FileRenderer = () => {
           ></iframe>
         : ''}
       </VideoContainer>
-    </div>
+    </WrapperContainer>
   );
 };
 

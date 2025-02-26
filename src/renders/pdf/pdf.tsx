@@ -164,7 +164,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
   }
 
   return (
-    <WrapperContainer config={config}>
+    <WrapperContainer config={config}  className={config?.classNames?.content}>
       <PdfDisplayMainContainer position={config?.pdfProps?.pageSelectorPosition}>
         <PdfWidgetMainContainer hidePageSelector={config?.pdfProps?.hidePageSelector} ref={pdfContainerRef}>
           {file && config?.widgets?.map((Widget) => <Widget

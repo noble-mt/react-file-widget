@@ -124,7 +124,7 @@ greeter.greet()
             inline
             // hideHeader
             imageProps={{
-              pictureMode: 'cover'
+              pictureMode: 'best-fit'
             }}
             videoProps={{
               disablePreLoad: true
@@ -187,14 +187,24 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <FileUpload />
       {/* <App /> */}
       {/* <App /> */}
-      {/* <FileWidget
-        file={{ url: 'https://player.vimeo.com/video/90509568' }}
-        width="700px"
-        height="100%"
+      <FileWidget
+        file={{ url: 'https://playerss.vimseo.com/video/90509568' }}
+        // width="700px"
+        // height="100%"
+        inline
         renderers={AllRenderers}
         videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high'  }}
+        classNames={{
+          error: "the total error class"
+        }}
+        slotProps={{
+          error: {
+            // height: "250px",
+            // backgroundColor: 'red'
+          }
+        }}
       />
-      <div style={{ height: "100px"}} />
+      {/* <div style={{ height: "100px"}} />
       <FileWidget
         file={{ url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE' }}
         width="500px"

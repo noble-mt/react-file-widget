@@ -3,7 +3,7 @@ import * as React from "react";
 import { RFW_FileRenderer } from "../../modals";
 import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
 import { convertSecondsToTwitchTime } from "../../utils/time";
-import { PlayButton, VideoContainer } from "../../shared/wrapper-contr";
+import { PlayButton, VideoContainer, WrapperContainer } from "../../shared/wrapper-contr";
 export const MATCH_URL_TWITCH_VIDEO = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/
 export const MATCH_URL_TWITCH_CHANNEL = /(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)($|\?)/
 export const MATCH_URL_TWITCH_COLLECTION = /(?:www\.|go\.)?twitch\.tv\/collections\/([a-zA-Z0-9]+)($|\?)/
@@ -53,22 +53,22 @@ const TwitchRender: RFW_FileRenderer = () => {
 
 
   return (
-    <div id="vimeo-renderer" style={{ width: "100%"}}>
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {/* <link rel={config?.videoProps?.preLoadMethod ?? 'preload'} href={baseUrl} as="image" /> */}
       {preConnected && iframeSrc ? <link rel="preconnect" href={iframeSrc} /> : ''}
       <VideoContainer
         onPointerOver={() => setPreConnected(true)}
         onClick={() => setShowVideo(true)}
+        config={config}
+        className={`video-container ${config?.classNames?.videoContainer}`}
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
           backgroundImage: config?.videoProps?.poster ? `url(${config?.videoProps?.poster})` : '',
           ...({
             '--aspect-ratio': `${(9 / 15) * 100}%`,
           } as React.CSSProperties),
         }}
         >
-          <PlayButton />
+          <PlayButton  config={config} className={config?.classNames?.playButton}/>
           {showVideo ? (
             <iframe
               title={''}
@@ -81,7 +81,7 @@ const TwitchRender: RFW_FileRenderer = () => {
             ></iframe>
           ): ''}
         </VideoContainer>
-    </div>
+    </WrapperContainer>
   );
 };
 

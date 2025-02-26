@@ -1,50 +1,63 @@
 import styled from '@emotion/styled'
 import { ContextProps } from 'context-provider';
 
-export const VideoContainer = styled.div`
-    background-color: #000;
-    position: relative;
-    display: block;
-    contain: content;
-    background-position: 50%;
-    background-size: cover;
-    cursor: pointer;
-    &:after {
-        content: "";
-        display: block; 
-        padding-bottom: 56%;
-    }
-    iframe, video, .video {
-        // width: 100%;
-        // height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-`;
+export const VideoContainer = styled.div<{ config?: ContextProps }>(props => ({
 
-export const PlayButton = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 68px;
-    height: 48px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid wheat;
-    &:before {
-        content: "";
-        display: inline-block;
-        margin-left: 5px;
-        border-style: solid;
-        border-width: 12px 0 12px 20px;
-        border-color: transparent transparent transparent #fff;
-    }
-`;
+    width: props?.config?.width ?? "100%",
+    height: props?.config?.height ?? '100%',
+    backgroundColor: "#000",
+    position: "relative",
+    display: "block",
+    contain: "content",
+    backgroundPosition: "50%",
+    backgroundSize: "cover",
+    cursor: "pointer",
+    "&:after": {
+        content: '""',
+        display: "block",
+        paddingBottom: "56%",
+    },
+    iframe: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+    },
+    video: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+    },
+    ".video": {
+        position: "absolute",
+        top: 0,
+        left: 0,
+    },
+    ...(props?.config?.slotProps?.videoContainer ?? {})
+}));
+
+export const PlayButton = styled.div<{ config?: ContextProps }>(props => ({
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "68px",
+    height: "48px",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    borderRadius: "12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "1px solid wheat",
+    "&:before": {
+        content: '""',
+        display: "inline-block",
+        marginLeft: "5px",
+        borderStyle: "solid",
+        borderWidth: "12px 0 12px 20px",
+        borderColor: "transparent transparent transparent #fff",
+    },
+    ...(props?.config?.slotProps?.playButton ?? {})
+}));
 
 
 export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
@@ -80,13 +93,17 @@ export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
             backgroundColor: "gray",
             borderRadius: "10px",
             border: "2px solid white",
-        }
+        },
+        ...(props?.config?.slotProps?.content ?? {})
     }
 });
 
 export const RootContainer = styled.div<{ config?: ContextProps }>(props => {
     const { inline, hideHeader } = props.config ?? {};
     return inline ? {
+        borderRadius: "8px",
+        overflow: "hidden",
+        ...(props?.config?.slotProps?.root ?? {})
     } : {
         width: "100%",
         height: "100vh",
@@ -96,6 +113,7 @@ export const RootContainer = styled.div<{ config?: ContextProps }>(props => {
 
         ".video-container": {
             height: hideHeader ? "100vh" : "calc(100vh - 64px)"
-        }
+        },
+        ...(props?.config?.slotProps?.root ?? {})
     }
 });

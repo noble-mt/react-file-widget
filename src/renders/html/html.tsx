@@ -40,7 +40,7 @@ const HTMLRender: RFW_FileRenderer = () => {
   }, []);
 
   return (
-    <WrapperContainer config={config}>
+    <WrapperContainer config={config}  className={config?.classNames?.content}>
       {error ? (
         <ErrorPage />
       ) : (

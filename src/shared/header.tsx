@@ -12,13 +12,14 @@ const HeaderContainer = styled.div<{ config?: ContextProps }>(props => ({
     padding: '32px',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    ...(props?.config?.slotProps?.header ?? {})
 }));
 
 export const Header = () => {
     const file = useGetDocument();
     const config = useGetConfig();
-    return <HeaderContainer config={config} >
+    return <HeaderContainer config={config} className={config?.classNames?.header}>
         <h3>{file?.title ?? file?.fileName ?? file?.file?.name}</h3>
     </HeaderContainer>
 }

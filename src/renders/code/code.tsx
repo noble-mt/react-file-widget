@@ -37,7 +37,7 @@ const CodeRenderer: RFW_FileRenderer = () => {
   const lang = file?.language ?? getPrimsSyntaxTypeForCode(file?.url ?? '')
 
   return (
-    <WrapperContainer config={config} className={config?.theme === 'light' ? "parent-code-class-light" : "parent-code-class-dark"}>
+    <WrapperContainer config={config} className={`${config?.theme === 'light' ? "parent-code-class-light" : "parent-code-class-dark"}  ${config?.classNames?.content}`}>
       <pre>
         <code className={`language-${lang}`} ref={codeElement}>{content}</code>
       </pre>

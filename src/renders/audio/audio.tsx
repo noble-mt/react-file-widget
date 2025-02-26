@@ -27,7 +27,7 @@ const AudioRenderer: RFW_FileRenderer = () => {
     }, [file?.file]);
 
   return (
-    <div id="audio-renderer" >
+    <div id="audio-renderer" className={config?.classNames?.content} style={config?.slotProps?.content} >
       <audio
         id="rfw_audio"
         ref={audioElement}

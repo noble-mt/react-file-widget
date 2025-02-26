@@ -8,7 +8,7 @@ const MSDocRender: RFW_FileRenderer = () => {
   const config = useGetConfig();
 
   return (
-    <WrapperContainer config={config}>
+    <WrapperContainer config={config}  className={config?.classNames?.content}>
       {document?.url ? (
         <iframe
           id="msdoc-iframe"

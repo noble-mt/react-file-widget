@@ -31,7 +31,7 @@ const TextXmlRender: RFW_FileRenderer = () => {
   }, [file?.url]);
 
   return (
-    <WrapperContainer config={config}>
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {error ? <ErrorPage /> : content}
     </WrapperContainer>
   );
