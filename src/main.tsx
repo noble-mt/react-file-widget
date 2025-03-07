@@ -1,47 +1,47 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { FileWidget } from "./index";
-import { AllRenderers } from "./index";
-import { POSTER_QUALITY } from "./modals";
-import { ZoomController } from "./renders/pdf/widgets/zoom-widget";
-import { Header } from "./shared/header";
-import { PageSelector } from "./renders/pdf/components/page-selector";
-import { useState } from "react";
-import { languages } from "prismjs";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { FileWidget } from './index';
+import { AllRenderers } from './index';
+import { POSTER_QUALITY } from './modals';
+import { ZoomController } from './renders/pdf/widgets/zoom-widget';
+import { Header } from './shared/header';
+import { PageSelector } from './renders/pdf/components/page-selector';
+import { useState } from 'react';
+import { languages } from 'prismjs';
 
 const App = () => {
   const Files = [
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/html/sample2.html'
+      url: 'https://www.filesampleshub.com/download/code/html/sample2.html',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/xls/sample2.xls'
+      url: 'https://www.filesampleshub.com/download/document/xls/sample2.xls',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/txt/sample2.txt'
+      url: 'https://www.filesampleshub.com/download/document/txt/sample2.txt',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/pptx/sample2.pptx'
+      url: 'https://www.filesampleshub.com/download/document/pptx/sample2.pptx',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf'
+      url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx'
+      url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx'
+      url: 'https://www.filesampleshub.com/download/document/docx/sample2.docx',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/document/doc/sample2.doc'
+      url: 'https://www.filesampleshub.com/download/document/doc/sample2.doc',
     },
     // {
     //   title: 'This is a header Example',
@@ -49,56 +49,56 @@ const App = () => {
     // },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/svg/sample2.svg'
+      url: 'https://www.filesampleshub.com/download/image/svg/sample2.svg',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/png/sample2.png'
+      url: 'https://www.filesampleshub.com/download/image/png/sample2.png',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/jpg/sample2.jpg'
+      url: 'https://www.filesampleshub.com/download/image/jpg/sample2.jpg',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/image/bmp/sample2.bmp'
+      url: 'https://www.filesampleshub.com/download/image/bmp/sample2.bmp',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/yaml/sample2.yaml'
+      url: 'https://www.filesampleshub.com/download/code/yaml/sample2.yaml',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/xml/sample2.xml'
+      url: 'https://www.filesampleshub.com/download/code/xml/sample2.xml',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/code/json/sample2.json'
+      url: 'https://www.filesampleshub.com/download/code/json/sample2.json',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.filesampleshub.com/download/audio/wav/sample2.WAV'
+      url: 'https://www.filesampleshub.com/download/audio/wav/sample2.WAV',
     },
     {
       title: 'This is a header Example',
-      url: 'https://player.vimeo.com/video/90509568'
+      url: 'https://player.vimeo.com/video/90509568',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE'
+      url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE',
     },
     {
       title: 'This is a header Example',
-      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4'
+      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
     },
     {
       title: 'This is a header Example',
-      url: 'https://www.twitch.tv/bean'
+      url: 'https://www.twitch.tv/bean',
     },
     {
       fileType: 'code',
       language: 'python' as const,
-      data:`
+      data: `
 class Greeter:
 def __init__(self, name):
   self.name = name
@@ -108,13 +108,14 @@ def greet(self):
 
 greeter = Greeter("Alice")
 greeter.greet()
-`
-    }
+`,
+    },
   ];
   return (
     <>
-      {Files.map(item => <>
-          <div style={{ height: "100px"}} />
+      {Files.map((item) => (
+        <>
+          <div style={{ height: '100px' }} />
           <FileWidget
             file={item}
             renderers={AllRenderers}
@@ -124,10 +125,10 @@ greeter.greet()
             inline
             // hideHeader
             imageProps={{
-              pictureMode: 'best-fit'
+              pictureMode: 'best-fit',
             }}
             videoProps={{
-              disablePreLoad: true
+              disablePreLoad: true,
             }}
             pdfProps={{
               pageSelectorPosition: 'left',
@@ -135,13 +136,12 @@ greeter.greet()
             }}
           />
         </>
-      )}
+      ))}
     </>
-  )
-}
+  );
+};
 const FileUpload = () => {
   const [fileData, setFileData] = useState<File | null>(null);
-
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -164,48 +164,65 @@ const FileUpload = () => {
       <input type="file" onChange={handleFileUpload} />
       {fileData ? (
         <FileWidget
-          file={{ 
-            file: fileData
+          file={{
+            file: fileData,
           }}
           // width="700px"
           // height="100%"
           inline
           renderers={AllRenderers}
-          videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high'  }}
+          videoProps={{
+            disablePreLoad: true,
+            hideControls: false,
+            autoplay: true,
+            start: 40,
+            posterQuality: 'high',
+          }}
         />
-      ) : ''}
+      ) : (
+        ''
+      )}
     </div>
   );
 };
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <div style={{ paddingLeft: "200px", paddingRight: "200px", maxWidth: "100%" }}>
-     
+    <div style={{ paddingLeft: '200px', paddingRight: '200px', maxWidth: '100%' }}>
       {/* <App /> */}
       <FileUpload />
       {/* <App /> */}
       {/* <App /> */}
       <FileWidget
-        file={{ url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf' }}
+        file={{
+          url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf',
+        }}
         width="700px"
         height="600px"
         customHeader={(file, config) => <div>This is file{file.url}</div>}
         inline
         renderers={AllRenderers}
-        videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high'  }}
+        videoProps={{
+          disablePreLoad: true,
+          hideControls: false,
+          autoplay: true,
+          start: 40,
+          posterQuality: 'high',
+        }}
         classNames={{
-          error: "the total error class"
+          error: 'the total error class',
         }}
-        pdfProps={{
-          // paginated: true,
-          // hidePageSelector: true,
-        }}
+        pdfProps={
+          {
+            // paginated: true,
+            // hidePageSelector: true,
+          }
+        }
         slotProps={{
           error: {
             // height: "250px",
             // backgroundColor: 'red'
-          }
+          },
         }}
       />
       {/* <div style={{ height: "100px"}} />
@@ -254,7 +271,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         renderers={AllRenderers}
       />
       */}
-       {/* <FileWidget
+      {/* <FileWidget
         file={{ url: 'https://www.filesampleshub.com/download/document/docx/sample1.docx' }}
         width="800px"
         height="100%"
@@ -279,7 +296,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         renderers={AllRenderers}
         theme="dark"
       /> */}
-      
+
       {/* <FileWidget
         file={{ url: 'https://www.filesampleshub.com/download/code/html/sample3.html' }}
         renderers={AllRenderers}
@@ -288,7 +305,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         file={{ fileData: "adfjalsdjf lakjsf <p>BOld</p><b>Parra</b> asdf asdf asdfalsdfj asdf asdfasdf asdf asdf asdf ", fileType: 'html'}}
         renderers={AllRenderers}
       /> */}
-
     </div>
   </React.StrictMode>
 );

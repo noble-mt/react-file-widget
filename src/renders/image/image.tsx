@@ -1,9 +1,8 @@
-import { RFW_FileRenderer } from "modals";
-import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { WrapperContainer } from "./../../shared/wrapper-contr";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
+import { RFW_FileRenderer } from 'modals';
+import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
+import { WrapperContainer } from './../../shared/wrapper-contr';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const ImageRender: RFW_FileRenderer = () => {
   const document = useGetDocument();
@@ -22,15 +21,12 @@ const ImageRender: RFW_FileRenderer = () => {
 
   const imageScale = useMemo(() => {
     let scale = 0;
-    if ( containerWidth !== 0 && containerHeight !== 0  &&  imageNaturalWidth !== 0 && imageNaturalHeight !== 0) {
-      scale = config?.imageProps?.pictureMode === 'cover' ? Math.max(
-        containerWidth / imageNaturalWidth,
-        containerHeight / imageNaturalHeight,
-      ) : Math.min(
-        containerWidth / imageNaturalWidth,
-        containerHeight / imageNaturalHeight,
-      );
-    } else if (containerWidth !== 0 && imageNaturalWidth !== 0 ) {
+    if (containerWidth !== 0 && containerHeight !== 0 && imageNaturalWidth !== 0 && imageNaturalHeight !== 0) {
+      scale =
+        config?.imageProps?.pictureMode === 'cover'
+          ? Math.max(containerWidth / imageNaturalWidth, containerHeight / imageNaturalHeight)
+          : Math.min(containerWidth / imageNaturalWidth, containerHeight / imageNaturalHeight);
+    } else if (containerWidth !== 0 && imageNaturalWidth !== 0) {
       scale = containerWidth / imageNaturalWidth;
     } else {
       return 0;
@@ -42,12 +38,12 @@ const ImageRender: RFW_FileRenderer = () => {
     containerHeight,
     imageNaturalWidth,
     imageNaturalHeight,
-    config?.imageProps?.pictureMode
+    config?.imageProps?.pictureMode,
   ]);
 
   const recHeight = useMemo(() => {
-    return  `${imageNaturalHeight*containerWidth/imageNaturalWidth}px`;
-  }, [containerWidth,imageNaturalHeight, imageNaturalWidth])
+    return `${(imageNaturalHeight * containerWidth) / imageNaturalWidth}px`;
+  }, [containerWidth, imageNaturalHeight, imageNaturalWidth]);
 
   const handleResize = useCallback(() => {
     if (imageContainerRef?.current !== null) {
@@ -62,9 +58,9 @@ const ImageRender: RFW_FileRenderer = () => {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, [handleResize]);
 
@@ -84,24 +80,27 @@ const ImageRender: RFW_FileRenderer = () => {
         if (e.target?.result) {
           const image = new Image();
           image.onload = () => handleImageOnLoad(image);
-          image.src =  e.target.result as string;
+          image.src = e.target.result as string;
           setImageData(e.target.result as string);
         }
-      }
+      };
       reader.readAsDataURL(document.file);
     } else if (document?.data) {
       const image = new Image();
       image.onload = () => handleImageOnLoad(image);
       image.src = document.data as string;
-      setImageData(document.data)
+      setImageData(document.data);
     }
   }, [document?.url]);
 
-
-  console.log('scale', imageScale, containerWidth, imageNaturalWidth, containerHeight,)
+  console.log('scale', imageScale, containerWidth, imageNaturalWidth, containerHeight);
 
   return (
-    <WrapperContainer config={{ ...config, height: config?.height ?? recHeight }}  className={config?.classNames?.content} ref={imageContainerRef} >
+    <WrapperContainer
+      config={{ ...config, height: config?.height ?? recHeight }}
+      className={config?.classNames?.content}
+      ref={imageContainerRef}
+    >
       {imageScale > 0 && (
         <TransformWrapper
           key={`${containerWidth}x${containerHeight}`}
@@ -109,10 +108,15 @@ const ImageRender: RFW_FileRenderer = () => {
           minScale={imageScale}
           maxScale={imageScale * zoomFactor}
         >
-        <TransformComponent wrapperStyle={{ width: config?.width ?? "100%", height: config?.height ?? recHeight ?? "100%" }}>
-          <img ref={imageRef} src={document?.url  ?? imageDate} />
-        </TransformComponent>
-      </TransformWrapper>
+          <TransformComponent
+            wrapperStyle={{
+              width: config?.width ?? '100%',
+              height: config?.height ?? recHeight ?? '100%',
+            }}
+          >
+            <img ref={imageRef} src={document?.url ?? imageDate} />
+          </TransformComponent>
+        </TransformWrapper>
       )}
     </WrapperContainer>
   );
@@ -120,4 +124,16 @@ const ImageRender: RFW_FileRenderer = () => {
 
 export default ImageRender;
 
-ImageRender.supportedFileTypes = ["jpeg", "jpg", "bmp", "png", "gif", "svg", "image/bmp", "image/jpg", "image/jpeg", "image/png", "image/gif"];
+ImageRender.supportedFileTypes = [
+  'jpeg',
+  'jpg',
+  'bmp',
+  'png',
+  'gif',
+  'svg',
+  'image/bmp',
+  'image/jpg',
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+];

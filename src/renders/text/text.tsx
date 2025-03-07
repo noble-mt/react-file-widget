@@ -1,33 +1,34 @@
-import { RFW_FileRenderer } from "modals";
-import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { useEffect, useState } from "react";
-import { WrapperContainer } from "./../../shared/wrapper-contr";
-import ErrorPage from "../../shared/error-page";
+import { RFW_FileRenderer } from 'modals';
+import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
+import { useEffect, useState } from 'react';
+import { WrapperContainer } from './../../shared/wrapper-contr';
+import ErrorPage from '../../shared/error-page';
 
 const TextXmlRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
   const [content, setContent] = useState<string>(file?.data as string);
-  const [error , SetError] = useState<boolean>(false);
+  const [error, SetError] = useState<boolean>(false);
 
-  console.log('here')
+  console.log('here');
 
   useEffect(() => {
-      if (file?.url) {
-          fetch(file?.url)
-              .then(res => res.text())
-              .then(res => {
-                setContent(res);
-              }).catch(() => SetError(true));
-      } else if (file?.file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const text = e.target?.result as string;
-          setContent(text)
-        };
-        reader.onerror = () => SetError(true);
-        reader.readAsText(file.file);
-      }
+    if (file?.url) {
+      fetch(file?.url)
+        .then((res) => res.text())
+        .then((res) => {
+          setContent(res);
+        })
+        .catch(() => SetError(true));
+    } else if (file?.file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result as string;
+        setContent(text);
+      };
+      reader.onerror = () => SetError(true);
+      reader.readAsText(file.file);
+    }
   }, [file?.url]);
 
   return (
@@ -39,5 +40,4 @@ const TextXmlRender: RFW_FileRenderer = () => {
 
 export default TextXmlRender;
 
-TextXmlRender.supportedFileTypes = ["txt"];
-
+TextXmlRender.supportedFileTypes = ['txt'];

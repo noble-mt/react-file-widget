@@ -1,18 +1,16 @@
-import { RFW_FileRenderer } from "modals";
-import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { useEffect, useRef } from "react";
-import { PlayButton, VideoContainer, WrapperContainer } from "../../shared/wrapper-contr";
-import React from "react";
-
+import { RFW_FileRenderer } from 'modals';
+import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
+import { useEffect, useRef } from 'react';
+import { PlayButton, VideoContainer, WrapperContainer } from '../../shared/wrapper-contr';
+import React from 'react';
 
 const VideoRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
   const videoElement = useRef<HTMLVideoElement | null>(null);
 
-  
   const [preConnected, setPreConnected] = React.useState(false);
-  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad)
+  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad);
 
   useEffect(() => {
     if (showVideo && config?.videoProps?.start) {
@@ -34,12 +32,11 @@ const VideoRender: RFW_FileRenderer = () => {
 
   const handleEnableVideo = () => {
     setShowVideo(true);
-    
-  }
+  };
 
   const warmUpTheUrl = () => {
     setPreConnected(true);
-  }
+  };
 
   useEffect(() => {
     if (file?.file && videoElement.current) {
@@ -61,23 +58,24 @@ const VideoRender: RFW_FileRenderer = () => {
         className={`video-container ${config?.classNames?.videoContainer}`}
         style={{
           backgroundImage: `url(${config?.videoProps?.poster})`,
-          ...({
-          } as React.CSSProperties),
+          ...({} as React.CSSProperties),
         }}
-        >
-          <PlayButton config={config} className={config?.classNames?.playButton}/>
-          {showVideo ?
-            <video
-              ref={videoElement}
-              width={config?.width}
-              height={config?.height ?? 'auto'}
-              controls={!config?.videoProps?.hideControls}
-              autoPlay={config?.videoProps?.autoplay}
-              loop={config?.videoProps?.loop}
-              muted={config?.videoProps?.muted}
-              playsInline={!config?.videoProps?.disableInlineOnMobile}
-            />
-          : ''}
+      >
+        <PlayButton config={config} className={config?.classNames?.playButton} />
+        {showVideo ? (
+          <video
+            ref={videoElement}
+            width={config?.width}
+            height={config?.height ?? 'auto'}
+            controls={!config?.videoProps?.hideControls}
+            autoPlay={config?.videoProps?.autoplay}
+            loop={config?.videoProps?.loop}
+            muted={config?.videoProps?.muted}
+            playsInline={!config?.videoProps?.disableInlineOnMobile}
+          />
+        ) : (
+          ''
+        )}
       </VideoContainer>
     </WrapperContainer>
   );
@@ -85,4 +83,4 @@ const VideoRender: RFW_FileRenderer = () => {
 
 export default VideoRender;
 
-VideoRender.supportedFileTypes = ["mp4", "webm", "ogg", "video/mp4", "video/webm", "video/ogg"];
+VideoRender.supportedFileTypes = ['mp4', 'webm', 'ogg', 'video/mp4', 'video/webm', 'video/ogg'];

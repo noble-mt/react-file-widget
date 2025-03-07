@@ -1,33 +1,30 @@
-import { RFW_FileRenderer } from "../../modals/render";
-import React, { useEffect, useRef } from "react";
-import { pdfjs, Document, Page } from "react-pdf";
-import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { PDF_MODES } from "../../modals";
+import { RFW_FileRenderer } from '../../modals/render';
+import React, { useEffect, useRef } from 'react';
+import { pdfjs, Document, Page } from 'react-pdf';
+import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
+import { PDF_MODES } from '../../modals';
 import styled from '@emotion/styled';
-import { PageSelector } from "./components/page-selector";
-import { WrapperContainer } from "../../shared/wrapper-contr";
-import { ContextProps } from "context-provider";
-import { ZoomController } from "./widgets/zoom-widget";
+import { PageSelector } from './components/page-selector';
+import { WrapperContainer } from '../../shared/wrapper-contr';
+import { ContextProps } from 'context-provider';
+import { ZoomController } from './widgets/zoom-widget';
 const getFlexDirectionForPosition = (position?: string) => {
   if (position === 'left') {
-    return 'row-reverse'
+    return 'row-reverse';
   } else if (position === 'right') {
-    return 'row'
+    return 'row';
   } else if (position === 'top') {
-    return 'column-reverse'
+    return 'column-reverse';
   } else if (position === 'bottom') {
-    return 'column'
+    return 'column';
   } else {
-    return 'row-reverse'
+    return 'row-reverse';
   }
-}
-
+};
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-
-
-const PdfWidgetMainContainer = styled.div<{ hidePageSelector?: boolean }>(props => ({
+const PdfWidgetMainContainer = styled.div<{ hidePageSelector?: boolean }>((props) => ({
   display: 'flex',
   justifyContent: 'center',
   position: 'relative',
@@ -38,7 +35,10 @@ const PdfWidgetMainContainer = styled.div<{ hidePageSelector?: boolean }>(props 
   maxWidth: '100%',
 }));
 
-const PdfDisplayMainContainer = styled.div<{ position?: string, config?: ContextProps }>(props => ({
+const PdfDisplayMainContainer = styled.div<{
+  position?: string;
+  config?: ContextProps;
+}>((props) => ({
   position: 'relative',
   display: 'flex',
   width: '100%',
@@ -46,7 +46,7 @@ const PdfDisplayMainContainer = styled.div<{ position?: string, config?: Context
   flexDirection: getFlexDirectionForPosition(props.position),
   flexGrow: 1,
   overflow: 'auto',
-  height: "100%"
+  height: '100%',
 }));
 
 const PdfPageListWrapper = styled.div`
@@ -54,7 +54,7 @@ const PdfPageListWrapper = styled.div`
   flex-direction: column;
   gap: 8px;
   height: 100%;
-`
+`;
 
 const PdfPageScrollWrapper = styled.div`
   width: 100%;
@@ -81,7 +81,7 @@ const PdfPageScrollWrapper = styled.div`
   > div {
     max-width: 100%;
   }
-`
+`;
 
 const PdfRenderer: RFW_FileRenderer = () => {
   const file = useGetDocument();
@@ -111,9 +111,8 @@ const PdfRenderer: RFW_FileRenderer = () => {
     setCurrentZoom(config?.pdfProps?.zoom ?? 1);
   }, [config?.pdfProps?.zoom]);
 
-  
   useEffect(() => {
-    setRotate((config?.pdfProps?.rotation ?? 0) % 360 );
+    setRotate((config?.pdfProps?.rotation ?? 0) % 360);
   }, [config?.pdfProps?.rotation]);
 
   const onLoad = (totalPages: number) => {
@@ -123,56 +122,55 @@ const PdfRenderer: RFW_FileRenderer = () => {
     if (pdfContainerRef.current) {
       setPageWidth(pdfContainerRef.current?.clientWidth - 50);
     }
-  }
-
+  };
 
   const zoomIn = (zoom?: number) => {
-    setCurrentZoom(prev => Math.round((prev + (zoom ?? .1)) * 100)/100);
-  }
+    setCurrentZoom((prev) => Math.round((prev + (zoom ?? 0.1)) * 100) / 100);
+  };
 
   const zoomOut = (zoom?: number) => {
-    setCurrentZoom(prev => Math.round((prev - (zoom ?? .1)) * 100)/100);
-  }
+    setCurrentZoom((prev) => Math.round((prev - (zoom ?? 0.1)) * 100) / 100);
+  };
 
   const setZoom = (value: number) => {
-    setCurrentZoom(Math.round(value * 100)/100);
-  }
+    setCurrentZoom(Math.round(value * 100) / 100);
+  };
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
-  }
+  };
 
   const nextPage = () => {
-    setCurrentPage(prev => prev + 1);
-  }
+    setCurrentPage((prev) => prev + 1);
+  };
 
   const prevPage = () => {
-    setCurrentPage(prev => prev - 1);
-  }
+    setCurrentPage((prev) => prev - 1);
+  };
 
   const changeMode = (mode: PDF_MODES) => {
     setCurrentMode(mode);
-  }
+  };
 
   const togglePagination = () => {
-    setPaginated(prev => !prev);
-  }
+    setPaginated((prev) => !prev);
+  };
   const rotateLeft = () => {
-    setRotate(prev => (prev - 90) % 360);
-  }
+    setRotate((prev) => (prev - 90) % 360);
+  };
 
   const rotateRight = () => {
-    setRotate(prev => (prev + 90) % 360);
-  }
+    setRotate((prev) => (prev + 90) % 360);
+  };
   return (
-    <WrapperContainer config={config}  className={config?.classNames?.content}>
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       <PdfDisplayMainContainer position={config?.pdfProps?.pageSelectorPosition} config={config}>
         <PdfWidgetMainContainer hidePageSelector={config?.pdfProps?.hidePageSelector} ref={pdfContainerRef}>
-          {file && (!config?.pdfProps?.hidePageSelector 
-          || !config?.pdfProps?.hideRotateControls
-          || !config?.pdfProps?.hideZoomControls
-          ) ? (
-          <ZoomController
+          {file &&
+          (!config?.pdfProps?.hidePageSelector ||
+            !config?.pdfProps?.hideRotateControls ||
+            !config?.pdfProps?.hideZoomControls) ? (
+            <ZoomController
               pageProps={{
                 totalPages: numPages,
                 currentPage,
@@ -184,18 +182,20 @@ const PdfRenderer: RFW_FileRenderer = () => {
                 togglePagination,
                 changeMode,
               }}
-              screenProps = {{
+              screenProps={{
                 currentZoom,
                 currentRotation: rotate,
                 setZoom,
                 zoomIn,
                 zoomOut,
                 rotateLeft,
-                rotateRight
+                rotateRight,
               }}
               file={file}
             />
-          ) : ''}
+          ) : (
+            ''
+          )}
           <PdfPageScrollWrapper>
             <Document
               file={file?.url ?? file?.file}
@@ -204,33 +204,35 @@ const PdfRenderer: RFW_FileRenderer = () => {
             >
               {paginated ? (
                 <Page
-                    pageNumber={currentPage}
-                    scale={currentZoom}
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                    rotate={rotate}
-                    width={pageWidth}
-                  />
-                ): (<>
-                <PdfPageListWrapper>
+                  pageNumber={currentPage}
+                  scale={currentZoom}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  rotate={rotate}
+                  width={pageWidth}
+                />
+              ) : (
+                <>
+                  <PdfPageListWrapper>
                     {Array.from(new Array(numPages), (_el, index) => (
-                        <Page
-                            key={`page_${index + 1}`}
-                            pageNumber={index + 1}
-                            inputRef={(ref) => {
-                              if (ref && currentPage === index + 1) {
-                                ref.scrollIntoView();
-                              }
-                            }}
-                            renderTextLayer={false}
-                            renderAnnotationLayer={false}
-                            width={pageWidth}
-                            rotate={rotate}
-                            scale={currentZoom}
-                        />
+                      <Page
+                        key={`page_${index + 1}`}
+                        pageNumber={index + 1}
+                        inputRef={(ref) => {
+                          if (ref && currentPage === index + 1) {
+                            ref.scrollIntoView();
+                          }
+                        }}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                        width={pageWidth}
+                        rotate={rotate}
+                        scale={currentZoom}
+                      />
                     ))}
                   </PdfPageListWrapper>
-                </>)}
+                </>
+              )}
             </Document>
           </PdfPageScrollWrapper>
         </PdfWidgetMainContainer>
@@ -242,4 +244,4 @@ const PdfRenderer: RFW_FileRenderer = () => {
 
 export default PdfRenderer;
 
-PdfRenderer.supportedFileTypes = ["pdf", "application/pdf"];
+PdfRenderer.supportedFileTypes = ['pdf', 'application/pdf'];

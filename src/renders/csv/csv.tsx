@@ -1,11 +1,11 @@
 // Copyright (c) 2017 PlanGrid, Inc.
 
-import React, { useEffect, useState } from "react";
-import { RFW_FileRenderer } from "../../modals";
-import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import styled from "@emotion/styled";
-import ErrorPage from "../../shared/error-page";
-import { WrapperContainer } from "../../shared/wrapper-contr";
+import React, { useEffect, useState } from 'react';
+import { RFW_FileRenderer } from '../../modals';
+import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
+import styled from '@emotion/styled';
+import ErrorPage from '../../shared/error-page';
+import { WrapperContainer } from '../../shared/wrapper-contr';
 
 const Table = styled.table`
   width: 100%;
@@ -36,8 +36,8 @@ const CSVRender: RFW_FileRenderer = () => {
   const parseData = (res: string) => {
     const rows: string[][] = [];
     let cols: string[] = [];
-    res.split("\n").map((row, rowIndex) => {
-      const values = row.split(",");
+    res.split('\n').map((row, rowIndex) => {
+      const values = row.split(',');
       if (rowIndex === 0) {
         cols = values;
       } else {
@@ -50,7 +50,7 @@ const CSVRender: RFW_FileRenderer = () => {
     });
     setColumns(cols);
     setRowData(rows);
-  }
+  };
 
   useEffect(() => {
     if (file?.url) {
@@ -69,12 +69,12 @@ const CSVRender: RFW_FileRenderer = () => {
       reader.onerror = () => SetError(true);
       reader.readAsText(file.file);
     } else if (file?.data) {
-      parseData(file.data)
+      parseData(file.data);
     }
   }, [file?.url]);
 
   return (
-    <WrapperContainer config={config}  className={config?.classNames?.content}>
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {error ? (
         <ErrorPage />
       ) : (
@@ -101,6 +101,6 @@ const CSVRender: RFW_FileRenderer = () => {
   );
 };
 
-CSVRender.supportedFileTypes = ["csv", "text/csv"];
+CSVRender.supportedFileTypes = ['csv', 'text/csv'];
 
 export default CSVRender;
