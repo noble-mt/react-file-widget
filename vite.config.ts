@@ -9,8 +9,8 @@ export default defineConfig({
   build: {
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
-      name: "mylib",
+      entry: path.resolve(__dirname, "src/index.tsx"),
+      name: "react_file_widget",
       formats: ["es", "cjs", "umd", "iife"],
       fileName: (format) => `index.${format}.js`,
     },
@@ -18,8 +18,7 @@ export default defineConfig({
       external: ["react", "react-dom"],
       output: {
         globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
+          react: "React", "react-dom": "ReactDOM",
         },
       },
     },

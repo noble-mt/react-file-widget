@@ -32,8 +32,6 @@ export const FileWidget = (props: RFW_AppProps) => {
   );
 };
 
-export default FileWidget;
-
 export {
   ImageRender,
   VideoRender,
