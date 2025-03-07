@@ -1,16 +1,16 @@
 {
-  "name": "vite-typescript-npm-package",
+  "name": "npm-file-widget",
   "version": "1.0.0",
-  "description": "Vite TypeScript library npm package template",
-  "author": "Jason Sturges <jason@jsonsturges.com> (https://jasonsturges.com)",
-  "homepage": "https://github.com/jasonsturges/vite-typescript-npm-package",
-  "repository": "github:jasonsturges/vite-typescript-npm-package",
+  "description": "A file viewer that support multiple file formats",
+  "author": "Noble Mathew <noblemathewtm@gmail.com>",
+  "homepage": "https://github.com/noble-mt/react-file-widget#readme",
+  "repository": "github:github.com/noble-mt/react-file-widget",
   "license": "ISC",
   "keywords": [
-    "vite",
-    "typescript",
-    "npm",
-    "package"
+    "file viewer",
+    "video viewer",
+    "document viewer",
+    "preload video"
   ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -19,6 +19,9 @@
   "files": [
     "dist"
   ],
+  "bugs": {
+    "url": "https://github.com/noble-mt/react-file-widget/issues"
+  },
   "scripts": {
     "dev": "tsc && vite build --watch",
     "start": "vite --host --open",

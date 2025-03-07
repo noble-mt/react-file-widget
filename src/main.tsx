@@ -43,10 +43,10 @@ const App = () => {
       title: 'This is a header Example',
       url: 'https://www.filesampleshub.com/download/document/doc/sample2.doc'
     },
-    {
-      title: 'This is a header Example',
-      url: 'https://gist.githubusercontent.com/noble-mt/91aee9b17e3cef0f743d8b7a2c75589d/raw/22f80c273e297d9ee9a57e911b9352f9e4eede79/sample-csv-file-for-live-testing.csv'
-    },
+    // {
+    //   title: 'This is a header Example',
+    //   url: 'https://gist.githubusercontent.com/noble-mt/91aee9b17e3cef0f743d8b7a2c75589d/raw/22f80c273e297d9ee9a57e911b9352f9e4eede79/sample-csv-file-for-live-testing.csv'
+    // },
     {
       title: 'This is a header Example',
       url: 'https://www.filesampleshub.com/download/image/svg/sample2.svg'
@@ -119,7 +119,7 @@ greeter.greet()
             file={item}
             renderers={AllRenderers}
             width="600px"
-            height="500px"
+            // height="500px"
             theme="dark"
             inline
             // hideHeader
@@ -133,7 +133,6 @@ greeter.greet()
               pageSelectorPosition: 'left',
               hidePageSelector: false,
             }}
-            widgets={[ZoomController]}
           />
         </>
       )}
@@ -183,19 +182,24 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <div style={{ paddingLeft: "200px", paddingRight: "200px", maxWidth: "100%" }}>
      
-      <App />
+      {/* <App /> */}
       <FileUpload />
       {/* <App /> */}
       {/* <App /> */}
       <FileWidget
-        file={{ url: 'https://playerss.vimseo.com/video/90509568' }}
-        // width="700px"
-        // height="100%"
+        file={{ url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf' }}
+        width="700px"
+        height="600px"
+        customHeader={(file, config) => <div>This is file{file.url}</div>}
         inline
         renderers={AllRenderers}
         videoProps={{ disablePreLoad: true, hideControls: false, autoplay: true, start: 40, posterQuality: 'high'  }}
         classNames={{
           error: "the total error class"
+        }}
+        pdfProps={{
+          // paginated: true,
+          // hidePageSelector: true,
         }}
         slotProps={{
           error: {

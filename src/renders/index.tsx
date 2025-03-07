@@ -4,7 +4,7 @@ import { RFW_FileRenderer } from "modals";
 import { useGetConfig, useGetDocument } from "../utils/context-helpers";
 import ErrorPage from "./../shared/error-page";
 import { Header } from "./../shared/header";
-import Loading from "../shared/Loading";
+import Loading from "./../shared/loading";
 
 interface RendererProps {
   renderers: RFW_FileRenderer[];
@@ -68,7 +68,7 @@ export const Renderer = ({ renderers }: RendererProps) => {
   return (
     <>
     
-      {config?.hideHeader ? '' : <Header />}
+      {config?.hideHeader ? '' : <>{(config?.customHeader  && document)? config.customHeader(document, config) : <Header />}</>}
       {CurrentRenderer === undefined ? (
         <Loading />
       ): ''}

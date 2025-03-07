@@ -63,6 +63,8 @@ export const PlayButton = styled.div<{ config?: ContextProps }>(props => ({
 export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
     const { width, height, inline, hideHeader, theme } = props.config ?? {};
     return {
+        display: 'flex',
+        flexDirection: 'column',
         width: width ?? "100%",
         height: inline ? undefined : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
         maxHeight: inline ? (height ?? "auto") : undefined,
@@ -75,7 +77,7 @@ export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
         iframe: {
             boxSizing: "border-box",
             width: width ?? "100%",
-            height: inline ? (height ?? "auto") : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
+            height: inline ? undefined : (hideHeader ? "100vh" : "calc(100vh - 64px)"),
             marginTop: "-8px",
             border: "none",
         },
@@ -99,10 +101,14 @@ export const WrapperContainer = styled.div<{ config?: ContextProps }>(props => {
 });
 
 export const RootContainer = styled.div<{ config?: ContextProps }>(props => {
-    const { inline, hideHeader } = props.config ?? {};
+    const { inline, width, hideHeader } = props.config ?? {};
     return inline ? {
         borderRadius: "8px",
         overflow: "hidden",
+        width: width ?? '100%',
+        ".video-container": {
+            height: "330px"
+        },
         ...(props?.config?.slotProps?.root ?? {})
     } : {
         width: "100%",

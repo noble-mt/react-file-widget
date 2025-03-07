@@ -6,6 +6,8 @@ import { PDF_MODES } from "../../modals";
 import styled from '@emotion/styled';
 import { PageSelector } from "./components/page-selector";
 import { WrapperContainer } from "../../shared/wrapper-contr";
+import { ContextProps } from "context-provider";
+import { ZoomController } from "./widgets/zoom-widget";
 const getFlexDirectionForPosition = (position?: string) => {
   if (position === 'left') {
     return 'row-reverse'
@@ -36,7 +38,7 @@ const PdfWidgetMainContainer = styled.div<{ hidePageSelector?: boolean }>(props 
   maxWidth: '100%',
 }));
 
-const PdfDisplayMainContainer = styled.div<{ position?: string }>(props => ({
+const PdfDisplayMainContainer = styled.div<{ position?: string, config?: ContextProps }>(props => ({
   position: 'relative',
   display: 'flex',
   width: '100%',
@@ -119,7 +121,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
     config?.pdfProps?.onLoad?.(totalPages);
 
     if (pdfContainerRef.current) {
-      setPageWidth(pdfContainerRef.current?.clientWidth);
+      setPageWidth(pdfContainerRef.current?.clientWidth - 50);
     }
   }
 
@@ -162,34 +164,38 @@ const PdfRenderer: RFW_FileRenderer = () => {
   const rotateRight = () => {
     setRotate(prev => (prev + 90) % 360);
   }
-
   return (
     <WrapperContainer config={config}  className={config?.classNames?.content}>
-      <PdfDisplayMainContainer position={config?.pdfProps?.pageSelectorPosition}>
+      <PdfDisplayMainContainer position={config?.pdfProps?.pageSelectorPosition} config={config}>
         <PdfWidgetMainContainer hidePageSelector={config?.pdfProps?.hidePageSelector} ref={pdfContainerRef}>
-          {file && config?.widgets?.map((Widget) => <Widget
-            pageProps={{
-              totalPages: numPages,
-              currentPage,
-              paginated,
-              currentMode,
-              goToPage,
-              nextPage,
-              prevPage,
-              togglePagination,
-              changeMode,
-            }}
-            screenProps = {{
-              currentZoom,
-              currentRotation: rotate,
-              setZoom,
-              zoomIn,
-              zoomOut,
-              rotateLeft,
-              rotateRight
-            }}
-            file={file}
-          />)}
+          {file && (!config?.pdfProps?.hidePageSelector 
+          || !config?.pdfProps?.hideRotateControls
+          || !config?.pdfProps?.hideZoomControls
+          ) ? (
+          <ZoomController
+              pageProps={{
+                totalPages: numPages,
+                currentPage,
+                paginated,
+                currentMode,
+                goToPage,
+                nextPage,
+                prevPage,
+                togglePagination,
+                changeMode,
+              }}
+              screenProps = {{
+                currentZoom,
+                currentRotation: rotate,
+                setZoom,
+                zoomIn,
+                zoomOut,
+                rotateLeft,
+                rotateRight
+              }}
+              file={file}
+            />
+          ) : ''}
           <PdfPageScrollWrapper>
             <Document
               file={file?.url ?? file?.file}
@@ -211,9 +217,16 @@ const PdfRenderer: RFW_FileRenderer = () => {
                         <Page
                             key={`page_${index + 1}`}
                             pageNumber={index + 1}
+                            inputRef={(ref) => {
+                              if (ref && currentPage === index + 1) {
+                                ref.scrollIntoView();
+                              }
+                            }}
                             renderTextLayer={false}
                             renderAnnotationLayer={false}
                             width={pageWidth}
+                            rotate={rotate}
+                            scale={currentZoom}
                         />
                     ))}
                   </PdfPageListWrapper>
