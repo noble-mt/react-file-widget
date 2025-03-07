@@ -1,33 +1,30 @@
-import { RFW_FileRenderer } from "modals";
-import { useGetConfig, useGetDocument } from "../../utils/context-helpers";
-import { useEffect } from "react";
-import { PlayButton, VideoContainer } from "../../shared/video-image-contr";
-import React from "react";
-
+import { RFW_FileRenderer } from 'modals';
+import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
+import { useEffect, useRef } from 'react';
+import { PlayButton, VideoContainer, WrapperContainer } from '../../shared/wrapper-contr';
+import React from 'react';
 
 const VideoRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
+  const videoElement = useRef<HTMLVideoElement | null>(null);
 
-  
-    const [preConnected, setPreConnected] = React.useState(false);
-    const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad)
+  const [preConnected, setPreConnected] = React.useState(false);
+  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad);
 
   useEffect(() => {
     if (showVideo && config?.videoProps?.start) {
-      const myvideo: any = document?.getElementById?.('myvideo');
-      if (myvideo) {
-        myvideo.currentTime = config?.videoProps?.start;
+      if (videoElement?.current) {
+        videoElement.current.currentTime = config?.videoProps?.start;
       }
     }
   }, [config?.videoProps?.start, showVideo]);
 
   useEffect(() => {
     if (showVideo) {
-      const myvideo: any = document?.getElementById?.('myvideo');
-      if (myvideo) {
-        myvideo.onloadeddata = () => {
-          myvideo?.play?.();
+      if (videoElement?.current) {
+        videoElement.current.onloadeddata = () => {
+          videoElement?.current?.play?.();
         };
       }
     }
@@ -35,47 +32,55 @@ const VideoRender: RFW_FileRenderer = () => {
 
   const handleEnableVideo = () => {
     setShowVideo(true);
-    
-  }
+  };
 
   const warmUpTheUrl = () => {
     setPreConnected(true);
-  }
+  };
+
+  useEffect(() => {
+    if (file?.file && videoElement.current) {
+      const objectUrl = URL.createObjectURL(file?.file);
+      videoElement.current.src = objectUrl;
+      return () => URL.revokeObjectURL(objectUrl);
+    } else if (file?.url && videoElement.current) {
+      videoElement.current.src = file?.url;
+    }
+  }, [file?.file, showVideo]);
 
   return (
-    <div id="video-renderer" >
+    <WrapperContainer config={config} className={config?.classNames?.content}>
       {preConnected ? <link rel="preconnect" href={file?.url} /> : ''}
       <VideoContainer
         onPointerOver={warmUpTheUrl}
         onClick={handleEnableVideo}
-        // data-title={videoMeta?.title}
+        config={config}
+        className={`video-container ${config?.classNames?.videoContainer}`}
         style={{
-          width: config?.width ?? "100%",
-          height: config?.height ?? '100%',
           backgroundImage: `url(${config?.videoProps?.poster})`,
-          ...({
-          } as React.CSSProperties),
+          ...({} as React.CSSProperties),
         }}
-        >
-          <PlayButton />
-          {showVideo ?
-            <video
-              id="myvideo"
-              width={config?.width}
-              height={config?.height ?? 'auto'}
-              src={file?.url as string}
-              controls={!config?.videoProps?.hideControls}
-              autoPlay={config?.videoProps?.autoplay}
-              loop={config?.videoProps?.loop}
-              muted={config?.videoProps?.muted}
-              playsInline={!config?.videoProps?.disableInlineOnMobile}
-            />
-          : ''}
+      >
+        <PlayButton config={config} className={config?.classNames?.playButton} />
+        {showVideo ? (
+          <video
+            ref={videoElement}
+            width={config?.width}
+            height={config?.height ?? 'auto'}
+            controls={!config?.videoProps?.hideControls}
+            autoPlay={config?.videoProps?.autoplay}
+            loop={config?.videoProps?.loop}
+            muted={config?.videoProps?.muted}
+            playsInline={!config?.videoProps?.disableInlineOnMobile}
+          />
+        ) : (
+          ''
+        )}
       </VideoContainer>
-    </div>
+    </WrapperContainer>
   );
 };
 
 export default VideoRender;
 
-VideoRender.supportedFileTypes = ["mp4"];
+VideoRender.supportedFileTypes = ['mp4', 'webm', 'ogg', 'video/mp4', 'video/webm', 'video/ogg'];
