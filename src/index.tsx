@@ -15,6 +15,19 @@ import TextXmlRender from './renders/text/text';
 import CodeRenderer from './renders/code/code';
 import AudioRenderer from './renders/audio/audio';
 import { RootContainer } from './shared/wrapper-contr';
+import ErrorPage from './shared/error-page';
+import Loading from './shared/loading';
+import { WrapperContainer } from './shared/wrapper-contr';
+import { useGetConfig, useGetDocument } from './utils/context-helpers';
+
+export {
+  ErrorPage,
+  Loading,
+  WrapperContainer,
+  useGetConfig,
+  useGetDocument
+}
+
 
 export const FileWidget = (props: RFW_AppProps) => {
   const { file, renderers, ...rest } = props;
@@ -61,3 +74,12 @@ export const AllRenderers = [
   CodeRenderer,
   AudioRenderer,
 ];
+
+export type {
+  RFW_AppProps,
+  RFW_File,
+  RFW_FileRenderer,
+  RFW_SlotStyleProps,
+  RFW_SlotsClassNames,
+  RFW_Languages
+} from "./modals";

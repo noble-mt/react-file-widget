@@ -6,6 +6,7 @@ import { useGetConfig, useGetDocument } from '../../utils/context-helpers';
 import styled from '@emotion/styled';
 import ErrorPage from '../../shared/error-page';
 import { WrapperContainer } from '../../shared/wrapper-contr';
+import Loading from '../../shared/loading';
 
 const Table = styled.table`
   width: 100%;
@@ -18,7 +19,7 @@ const Table = styled.table`
   th,
   td {
     border: 1px solid gray;
-    padding: 8px;
+    padding: 4px;
     text-align: left;
   }
   th {
@@ -29,6 +30,7 @@ const Table = styled.table`
 const CSVRender: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
+  const [loading, setLoading] = useState<boolean>(false);
   const [cols, setColumns] = useState<string[]>([]);
   const [rowData, setRowData] = useState<string[][]>([]);
   const [error, SetError] = useState<boolean>(false);
@@ -54,12 +56,14 @@ const CSVRender: RFW_FileRenderer = () => {
 
   useEffect(() => {
     if (file?.url) {
+      setLoading(true);
       fetch(file?.url)
         .then((res) => res.text())
         .then((res) => {
           parseData(res);
         })
-        .catch(() => SetError(true));
+        .catch(() => SetError(true))
+        .finally(() => setLoading(false));
     } else if (file?.file) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -78,24 +82,28 @@ const CSVRender: RFW_FileRenderer = () => {
       {error ? (
         <ErrorPage />
       ) : (
-        <Table>
-          <thead>
-            <tr>
-              {cols.map((col) => (
-                <th key={col}>{col}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rowData.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {cols.map((_cell, cellIndex) => (
-                  <td key={cellIndex}>{row?.[cellIndex]}</td>
+        <>
+          {loading ? <Loading /> : (
+            <Table>
+              <thead>
+                <tr>
+                  {cols.map((col) => (
+                    <th key={col}>{col}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rowData.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {cols.map((_cell, cellIndex) => (
+                      <td key={cellIndex}>{row?.[cellIndex]}</td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+              </tbody>
+            </Table>
+          )}
+        </>
       )}
     </WrapperContainer>
   );

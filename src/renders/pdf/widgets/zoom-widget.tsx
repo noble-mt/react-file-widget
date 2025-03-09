@@ -58,21 +58,21 @@ export const ZoomController = ({ pageProps, screenProps }: RFW_WidgetComponentPr
           <img width="20px" src={zoomOut} />
         </ZoomButton>
       )}
-      {config?.pdfProps?.hiePageControls ? (
+      {config?.pdfProps?.hidePageControls ? (
         ''
       ) : (
         <ZoomButton onClick={() => pageProps?.prevPage?.()}>
           <img width="20px" src={skipLeft} />
         </ZoomButton>
       )}
-      {config?.pdfProps?.hiePageControls ? (
+      {config?.pdfProps?.hidePageControls ? (
         ''
       ) : (
         <PageInfo>
           {pageProps?.currentPage} / {pageProps?.totalPages}
         </PageInfo>
       )}
-      {config?.pdfProps?.hiePageControls ? (
+      {config?.pdfProps?.hidePageControls ? (
         ''
       ) : (
         <ZoomButton onClick={() => pageProps?.nextPage?.()}>

@@ -10,7 +10,7 @@ const VideoRender: RFW_FileRenderer = () => {
   const videoElement = useRef<HTMLVideoElement | null>(null);
 
   const [preConnected, setPreConnected] = React.useState(false);
-  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad);
+  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad || !!config?.videoProps?.autoplay);
 
   useEffect(() => {
     if (showVideo && config?.videoProps?.start) {
