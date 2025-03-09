@@ -33,7 +33,7 @@ const TextXmlRender: RFW_FileRenderer = () => {
 
   return (
     <WrapperContainer config={config} className={config?.classNames?.content}>
-      {error ? <ErrorPage /> : content}
+      {error ? <ErrorPage /> : <div style={{ whiteSpace: 'pre', fontFamily:'monospace', textAlign: 'left'}}>{content}</div>}
     </WrapperContainer>
   );
 };

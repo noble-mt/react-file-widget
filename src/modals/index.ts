@@ -4,3 +4,4 @@ export * from './file';
 export * from './render';
 export * from './app-props';
 export * from './widget-props';
+export * from './code-lang';

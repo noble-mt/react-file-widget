@@ -120,9 +120,8 @@ greeter.greet()
             file={item}
             renderers={AllRenderers}
             width="600px"
-            // height="500px"
+            height="500px"
             theme="dark"
-            inline
             // hideHeader
             imageProps={{
               pictureMode: 'best-fit',
@@ -167,9 +166,8 @@ const FileUpload = () => {
           file={{
             file: fileData,
           }}
-          // width="700px"
-          // height="100%"
-          inline
+          width="700px"
+          height="500px"
           renderers={AllRenderers}
           videoProps={{
             disablePreLoad: true,
@@ -189,7 +187,7 @@ const FileUpload = () => {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <div style={{ paddingLeft: '200px', paddingRight: '200px', maxWidth: '100%' }}>
-      {/* <App /> */}
+      <App />
       <FileUpload />
       {/* <App /> */}
       {/* <App /> */}
@@ -197,10 +195,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         file={{
           url: 'https://www.filesampleshub.com/download/document/pdf/sample2.pdf',
         }}
-        width="700px"
         height="600px"
         customHeader={(file, config) => <div>This is file{file.url}</div>}
-        inline
         renderers={AllRenderers}
         videoProps={{
           disablePreLoad: true,
@@ -214,8 +210,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }}
         pdfProps={
           {
-            // paginated: true,
-            // hidePageSelector: true,
+            paginated: true,
+            hidePageSelector: true,
           }
         }
         slotProps={{
@@ -225,8 +221,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           },
         }}
       />
-      {/* <div style={{ height: "100px"}} />
-      <FileWidget
+      <div style={{ height: "900px"}} /> 
+      {/* <FileWidget
         file={{ url: 'https://www.youtube.com/watch?v=hd1-CKDyHXE' }}
         width="500px"
         renderers={AllRenderers}

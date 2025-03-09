@@ -86,6 +86,7 @@ const PdfPageScrollWrapper = styled.div`
 const PdfRenderer: RFW_FileRenderer = () => {
   const file = useGetDocument();
   const config = useGetConfig();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [currentZoom, setCurrentZoom] = React.useState<number>(1);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [currentMode, setCurrentMode] = React.useState<PDF_MODES>(config?.pdfProps?.mode ?? 'single_page_view');
@@ -162,6 +163,18 @@ const PdfRenderer: RFW_FileRenderer = () => {
   const rotateRight = () => {
     setRotate((prev) => (prev + 90) % 360);
   };
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const pageElement = containerRef.current.querySelector(
+        `.react-pdf__Page[data-page-number="${currentPage}"]`
+      );
+      if (pageElement) {
+        containerRef.current.scrollTop = (pageElement as HTMLElement).offsetTop;
+      }
+    }
+  }, [currentPage]);
+
   return (
     <WrapperContainer config={config} className={config?.classNames?.content}>
       <PdfDisplayMainContainer position={config?.pdfProps?.pageSelectorPosition} config={config}>
@@ -196,7 +209,7 @@ const PdfRenderer: RFW_FileRenderer = () => {
           ) : (
             ''
           )}
-          <PdfPageScrollWrapper>
+          <PdfPageScrollWrapper ref={containerRef}>
             <Document
               file={file?.url ?? file?.file}
               onLoadSuccess={({ numPages }) => onLoad(numPages)}
@@ -218,11 +231,6 @@ const PdfRenderer: RFW_FileRenderer = () => {
                       <Page
                         key={`page_${index + 1}`}
                         pageNumber={index + 1}
-                        inputRef={(ref) => {
-                          if (ref && currentPage === index + 1) {
-                            ref.scrollIntoView();
-                          }
-                        }}
                         renderTextLayer={false}
                         renderAnnotationLayer={false}
                         width={pageWidth}

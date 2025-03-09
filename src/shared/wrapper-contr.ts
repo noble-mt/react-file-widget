@@ -59,27 +59,29 @@ export const PlayButton = styled.div<{ config?: ContextProps }>((props) => ({
 }));
 
 export const WrapperContainer = styled.div<{ config?: ContextProps }>((props) => {
-  const { width, height, inline, hideHeader, theme } = props.config ?? {};
+  const { width, height, hideHeader, theme } = props.config ?? {};
   return {
     display: 'flex',
     flexDirection: 'column',
     width: width ?? '100%',
-    height: inline ? undefined : hideHeader ? '100vh' : 'calc(100vh - 64px)',
-    maxHeight: inline ? (height ?? 'auto') : undefined,
+    maxHeight: height ?? 'auto',
     overflow: 'auto',
     scrollbarWidth: 'thin',
     scrollbarColor: 'gray white',
     boxSizing: 'border-box',
     backgroundColor: theme === 'light' ? '#ffffff' : '#f0f0f0', // Suggesting a good white background
 
+    pre: {
+      scrollbarWidth: 'thin',
+      scrollbarColor: 'gray white',
+    },
+
     iframe: {
       boxSizing: 'border-box',
       width: width ?? '100%',
-      height: inline ? undefined : hideHeader ? '100vh' : 'calc(100vh - 64px)',
-      marginTop: '-8px',
+      height: height ?? '100%',
       border: 'none',
     },
-
     '&::-webkit-scrollbar': {
       width: '6px',
     },
@@ -99,27 +101,14 @@ export const WrapperContainer = styled.div<{ config?: ContextProps }>((props) =>
 });
 
 export const RootContainer = styled.div<{ config?: ContextProps }>((props) => {
-  const { inline, width, hideHeader } = props.config ?? {};
-  return inline
-    ? {
+  const { width, height, hideHeader } = props.config ?? {};
+  return  {
         borderRadius: '8px',
         overflow: 'hidden',
         width: width ?? '100%',
         '.video-container': {
-          height: '330px',
+          height: height ?? '100%',
         },
         ...(props?.config?.slotProps?.root ?? {}),
       }
-    : {
-        width: '100%',
-        height: '100vh',
-        position: 'absolute',
-        top: '0px',
-        left: 0,
-
-        '.video-container': {
-          height: hideHeader ? '100vh' : 'calc(100vh - 64px)',
-        },
-        ...(props?.config?.slotProps?.root ?? {}),
-      };
 });

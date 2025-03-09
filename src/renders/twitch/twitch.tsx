@@ -57,7 +57,7 @@ const TwitchRender: RFW_FileRenderer = () => {
 
   return (
     <WrapperContainer config={config} className={config?.classNames?.content}>
-      {/* <link rel={config?.videoProps?.preLoadMethod ?? 'preload'} href={baseUrl} as="image" /> */}
+      <link rel={config?.videoProps?.preLoadMethod ?? 'preload'} href={baseUrl} as="image" />
       {preConnected && iframeSrc ? <link rel="preconnect" href={iframeSrc} /> : ''}
       <VideoContainer
         onPointerOver={() => setPreConnected(true)}

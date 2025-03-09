@@ -16,7 +16,7 @@ const YoutubeRender: RFW_FileRenderer = () => {
   const config = useGetConfig();
 
   const [preConnected, setPreConnected] = React.useState(false);
-  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad);
+  const [showVideo, setShowVideo] = React.useState<boolean>(!config?.videoProps?.disablePreLoad || !!config?.videoProps?.autoplay);
   const [type, setType] = React.useState<'video' | 'playlist' | 'user' | null>(null);
   const [id, setId] = React.useState<string>('');
 
